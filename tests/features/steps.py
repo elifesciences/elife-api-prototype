@@ -22,12 +22,6 @@ def get_the_title(step):
 
 @step('Then I see the string (.*$)')
 def then_i_see_the_string(step, string):
-	logger.info("about to write string")	
-	logger.info(string)
-	logger.info("wrote string")	
-	logger.info("about to write title")	
-	logger.info(world.title)
-	logger.info("wrote title")	
 	assert world.title == string, \
 		"Got %s" % world.title 
 		
