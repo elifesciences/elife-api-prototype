@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import cgi
 import htmlentitydefs
 
-
 import logging
 logger = logging.getLogger('myapp')
 hdlr = logging.FileHandler('/Users/ian/code/private-code/elife-api-prototype/tests/test.log')
@@ -10,7 +9,6 @@ formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
-
 
 def swap_en_dashes(text):
 	title = text.replace("&#8211;", "&#x02013;")#.encode('ascii', 'xmlcharrefreplace')
@@ -30,12 +28,25 @@ def parse_document(filelocation):
 	soup = BeautifulSoup(open(filelocation), "lxml")
 	return soup
 
-def extract_title_text(filesoup):
-	title_tag = filesoup.find_all("article-title")[0]
-	title_tag_text = title_tag.text
-	return title_tag_text
+def extract_nodes(soup, nodename):
+	tags = soup.find_all(nodename)
+	return tags
+
+def extract_first_node(soup, nodename):
+	tags = extract_nodes(soup, nodename)
+	tag = tags[0]
+	return tag
+
+def extract_node_text(soup, nodename):
+	tag = extract_first_node(soup, nodename)
+	tag_text = tag.text
+	return tag_text
+
+def extract_title_text(soup):
+	title_text = extract_node_text(soup, "article-title")
+	return title_text
 	
-def title(filesoup):
-	title_text = extract_title_text(filesoup)
+def title(soup):
+	title_text = extract_title_text(soup)
 	formatted_text = format_text(title_text)
 	return formatted_text 
