@@ -9,11 +9,11 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
 
+test_xml_path = "/Users/ian/code/private-code/elife-api-prototype/sample-xml/"
+
 @step('I have the document (\S+)')
 def have_the_document(step, document):
-	logger.info(document)
 	file_location = set_file_location(document)
-	logger.info(file_location)
 	world.filecontent = pm.parse_document(file_location)
 
 @step('I get the title') 
@@ -33,7 +33,7 @@ def then_i_see_the_string(step, string):
 		
 def set_file_location(doc):
 	document = doc.lstrip('"').rstrip('"')
-	file_location = "/Users/ian/code/private-code/elife-api-prototype/sample-xml/" + document
+	file_location = test_xml_path + document
 	return file_location
 
 	
