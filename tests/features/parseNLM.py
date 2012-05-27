@@ -10,8 +10,9 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
 
-def swap_en_dashes(text):
-	title = text.replace("&#8211;", "&#x02013;")#.encode('ascii', 'xmlcharrefreplace')
+
+def	swap_en_dashes(textHTMLEntities):
+	title = textHTMLEntities.replace("&#8211;", "&#x02013;")#.encode('ascii', 'xmlcharrefreplace')
 	return title
 
 def unicodeToHTMLEntities(text):
@@ -23,6 +24,14 @@ def format_text(title_text):
 	textHTMLEntities = unicodeToHTMLEntities(title_text)
 	textHTMLEntitiesReverted = swap_en_dashes(textHTMLEntities)
 	return '"' + textHTMLEntitiesReverted + '"'
+
+def revert_entities(function):
+	"this is the dcorator"
+	def wrapper(*args, **kwargs):
+		text = function(*args, **kwargs)
+		formatted_text = format_text(text)
+		return formatted_text
+	return wrapper
 
 def parse_document(filelocation):
 	soup = BeautifulSoup(open(filelocation), "lxml")
@@ -42,11 +51,7 @@ def extract_node_text(soup, nodename):
 	tag_text = tag.text
 	return tag_text
 
-def extract_title_text(soup):
+@revert_entities # make cleaning up the entiteis a decorator, as we may be able to drop all this code later
+def title(soup):
 	title_text = extract_node_text(soup, "article-title")
 	return title_text
-	
-def title(soup):
-	title_text = extract_title_text(soup)
-	formatted_text = format_text(title_text)
-	return formatted_text 
