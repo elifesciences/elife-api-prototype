@@ -23,7 +23,7 @@ def unicodeToHTMLEntities(text):
 def format_text(title_text):
 	textHTMLEntities = unicodeToHTMLEntities(title_text)
 	textHTMLEntitiesReverted = swap_en_dashes(textHTMLEntities)
-	return '"' + textHTMLEntitiesReverted + '"'
+	return textHTMLEntitiesReverted
 
 def revert_entities(function):
 	"this is the dcorator"
