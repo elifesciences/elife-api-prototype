@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 import cgi
 import htmlentitydefs
+import os
 
 import logging
 logger = logging.getLogger('myapp')
-hdlr = logging.FileHandler('/Users/ian/code/private-code/elife-api-prototype/tests/test.log')
+hdlr = logging.FileHandler(os.getcwd() + os.sep + 'test.log')
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
@@ -55,3 +56,9 @@ def extract_node_text(soup, nodename):
 def title(soup):
 	title_text = extract_node_text(soup, "article-title")
 	return title_text
+
+def doi(soup):
+	tags = extract_nodes(soup, "article-id")
+	for tag in tags:
+		if tag['pub-id-type'] == 'doi':
+			return tag
