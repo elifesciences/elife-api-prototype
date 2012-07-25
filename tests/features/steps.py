@@ -30,22 +30,29 @@ def then_i_see_the_string(step, string):
 def get_the_doi(step):
 	world.doi = pm.doi(world.filecontent)
 
-@step('Then I get the doi (.*$)')
-def when_i_get_the_doi(step, string):
+@step(u'Then I see the identifier (.*$)')
+def then_i_see_the_identifier(step, string):
 	assert world.doi == string, \
 		"Got %s" % world.doi
 	
-@step(u'Then I see the identifier 10.1083/jcb.201106079')
-def then_i_see_the_identifier_10_1083_jcb_201106079(step, string):
-  assert True
+@step('I get the pmid')
+def get_the_pmid(step):
+	world.pmid = pm.pmid(world.filecontent)
 
-@step(u'Then I see the identifier 10.1083/jcb.201106010')
-def then_i_see_the_identifier_10_1083_jcb_201106010(step, string):
-  assert True
+@step(u'Then I see the number (\d+)')
+def then_i_see_the_number(step, number):
+	assert world.pmid == number, \
+		"Got %d" % world.pmid
 
-@step(u'Then I see the identifier bogus/bogus')
-def then_i_see_the_identifier_bogus_bogus(step, string):
-  assert False
+@step('I count the number of authors')
+def count_the_number_of_authors(step):
+	world.authors_count = len(pm.authors(world.filecontent))
+
+@step(u'Then I count the total authors as (\d+)')
+def then_i_count_the_total_authors_as(step, number):
+	number = int(number)
+	assert world.authors_count == number, \
+		"Got %d" % world.authors_count
 
 def set_file_location(doc):
 	document = doc.lstrip('"').rstrip('"')

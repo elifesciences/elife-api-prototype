@@ -61,4 +61,19 @@ def doi(soup):
 	tags = extract_nodes(soup, "article-id")
 	for tag in tags:
 		if tag['pub-id-type'] == 'doi':
-			return tag
+			return tag.text
+		
+def pmid(soup):
+	tags = extract_nodes(soup, "article-id")
+	for tag in tags:
+		if tag['pub-id-type'] == 'pmid':
+			return tag.text
+		
+def authors(soup):
+	"""Find and return all the authors"""
+	tags = extract_nodes(soup, "contrib")
+	authors = []
+	for tag in tags:
+		if tag['contrib-type'] == 'author':
+			authors.append(tag)
+	return authors

@@ -12,8 +12,3 @@ Feature: parse the article DOI
 		Given I have the document "NLM3-sample-for-elife.2.xml" 
 		When I get the doi 
 		Then I see the identifier 10.1083/jcb.201106010
-		
-	Scenario: bogus title of NLM3-sample-for-elife.xml
-		Given I have the document "NLM3-sample-for-elife.2.xml" 
-		When I get the doi 
-		Then I see the identifier bogus/bogus
