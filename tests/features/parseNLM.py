@@ -44,12 +44,20 @@ def extract_nodes(soup, nodename):
 
 def extract_first_node(soup, nodename):
 	tags = extract_nodes(soup, nodename)
-	tag = tags[0]
+	try:
+		tag = tags[0]
+	except(IndexError):
+		# Tag not found
+		return None
 	return tag
 
 def extract_node_text(soup, nodename):
 	tag = extract_first_node(soup, nodename)
-	tag_text = tag.text
+	try:
+		tag_text = tag.text
+	except(AttributeError):
+		# Tag text not found
+		return None
 	return tag_text
 
 @revert_entities # make cleaning up the entiteis a decorator, as we may be able to drop all this code later
@@ -77,3 +85,26 @@ def authors(soup):
 		if tag['contrib-type'] == 'author':
 			authors.append(tag)
 	return authors
+
+def references(soup):
+	"""Find and return all the references"""
+	references = extract_nodes(soup, "ref")
+	return references
+
+def get_references_by(soup, year = 0, source = ''):
+	"""Get references by attributes, boolean 'or' match"""
+	refs = []
+	if(year>0):
+		for ref in references(soup):
+			if int(extract_node_text(ref, "year")) == int(year):
+				refs.append(ref)
+	if(source != ''):
+		for ref in references(soup):
+			try:
+				if extract_node_text(ref, "source") == source:
+					refs.append(ref)
+			except(TypeError):
+			  # Possibly no tag found and returned None
+				pass
+	# Return with no duplicates
+	return list(set(refs))
