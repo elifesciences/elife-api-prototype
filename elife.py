@@ -79,6 +79,8 @@ tags = [
   {'tag': 'article/ref-doi',		'desc': ''},
   {'tag': 'article/ref-pmid',		'desc': ''},
   {'tag': 'article/ref-collab',		'desc': ''},
+  {'tag': 'article/ref-publisher-loc',		'desc': ''},
+  {'tag': 'article/ref-publisher-name',		'desc': ''},
   {'tag': 'article/citation',		'desc': ''},
   
   {'tag': 'person/surname',		'desc': ''},
@@ -166,9 +168,38 @@ objects = [
              settings.namespace + '/' + 'article/accepted-date-month': {'value': '5'},
              settings.namespace + '/' + 'article/accepted-date-year': {'value': '2012'},
              settings.namespace + '/' + 'article/accepted-date-timestamp': {'value': '1337212800'},
-              
-              
-              
+             settings.namespace + '/' + 'article/award-group-funding-source': {'value': 'National Institutes of Health'},
+             settings.namespace + '/' + 'article/award-group-award-id': {'value': 'GM18458'},
+             settings.namespace + '/' + 'article/award-group-principle-award-recipient': {'value': 'Author name(s)'},
+             settings.namespace + '/' + 'article/funding-statement': {'value': 'The funding sources were not involved in study design; collection, analysis, and interpretation of data; writing the article; and/or the decision to submit to the journal'},
+             settings.namespace + '/' + 'article/copyright-statement': {'value': 'Copyright &#x00A9; 2012, Whitehorn et al.'},
+             settings.namespace + '/' + 'article/copyright-year': {'value': '2012'},
+             settings.namespace + '/' + 'article/copyright-holder': {'value': 'Whitehorn et al.'},
+             settings.namespace + '/' + 'article/license': {'value': ' This work is licensed under a Creative Commons Attribution 3.0 Unported License. This is an open-access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.'},
+             settings.namespace + '/' + 'article/license-type': {'value': 'open-access'},
+             settings.namespace + '/' + 'article/license-url': {'value': 'http://creativecommons.org/licenses/by/3.0/'},
+             settings.namespace + '/' + 'article/ack': {'value': '<p>The authors would like to thank Dr Osvaldo Castro from IPK in Cuba for his assistance in distributing the questionnaires.</p>'},
+             settings.namespace + '/' + 'article/conflict': {'value': """<label>Competing interests</label>
+	<p>The authors have declared that no competing interests exist.</p>"""},
+             settings.namespace + '/' + 'article/ref': {'value': ['Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al. (2010) Dengue: a continuing global threat. Nat Rev Microbiol 8: S7&#x2013;S16.', 'Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al. (2008) Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults. J Clin Virol 42: 34&#x2013;39', 'La Russa VF, Innis BL (1995) Mechanisms of dengue virus-induced bone marrow suppression. Baillieres Clin Haematol 8: 249&#x2013;270', 'Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al. (2001) Immunopathogenesis of dengue virus infection. J Biomed Sci 8: 377&#x2013;388', 'Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al. (2012) Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections. J Infect Dis 205: 1321&#x2013;1329', 'Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al. (2001) Mechanisms of hemorrhage in dengue without circulatory collapse. Am J Trop Med Hyg 65: 840&#x2013;847', 'Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al. (2009) A re-evaluation of the mechanisms leading to dengue hemorrhagic fever. Ann N Y Acad Sci 1171: E24&#x2013;35', 'WHO (2009) Dengue: guidelines for diagnosis, treatment, prevention and control - New edition. Geneva: World Health Organisation.', 'WHO (2011) Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition.. In: Asia ROfS-E, editor. Delhi.', 'India Go (2008) Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome. In: Programme DoNVBDC, editor. Delhi.', 'Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al. (2011) Guidelines for the management of patients with severe forms of dengue. Rev Bras Ter Intensiva 23: 125&#x2013;133', 'Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK (2003) Preventive transfusion in Dengue shock syndrome-is it necessary? J Pediatr 143: 682&#x2013;684', 'Lye DC, Lee VJ, Sun Y, Leo YS (2009) Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection. Clin Infect Dis 48: 1262&#x2013;1265', 'Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS (2011) When less is more: can we abandon prophylactic platelet transfusion in Dengue fever? Ann Acad Med Singapore 40: 539&#x2013;537', 'Sharma A, Charles K, Chadee D, Teelucksingh S (2012) Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion. Am J Trop Med Hyg 86: 531&#x2013;535']},
+             settings.namespace + '/' + 'article/ref-publication-type': {'value': ['journal', 'journal', 'journal', 'journal', 'journal', 'journal', 'journal', 'book', 'book', 'other', 'journal', 'journal', 'journal', 'journal', 'journal']},
+             settings.namespace + '/' + 'article/ref-article-title': {'value': ['Dengue: a continuing global threat', 'Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults', 'Mechanisms of dengue virus-induced bone marrow suppression', 'Immunopathogenesis of dengue virus infection', 'Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections', 'Mechanisms of hemorrhage in dengue without circulatory collapse', 'A re-evaluation of the mechanisms leading to dengue hemorrhagic fever', 'Dengue: guidelines for diagnosis, treatment, prevention and control - New edition', 'Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition', 'Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome', 'Guidelines for the management of patients with severe forms of dengue', 'Preventive transfusion in Dengue shock syndrome-is it necessary?', 'Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection', 'When less is more: can we abandon prophylactic platelet transfusion in Dengue fever?', 'Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion']},
+             settings.namespace + '/' + 'article/ref-authors': {'value': ['Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al.', 'Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al.', 'La Russa VF, Innis BL', 'Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al.', 'Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al.', 'Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al.', 'Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al.', '', '', 'India Go', 'Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al.', 'Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK', 'Lye DC, Lee VJ, Sun Y, Leo YS', 'Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS', 'Sharma A, Charles K, Chadee D, Teelucksingh S']},
+             settings.namespace + '/' + 'article/ref-authors-etal': {'value': ['et al.', 'et al.', '', 'et al.', 'et al.', 'et al.', 'et al.', '', '', '', 'et al.', '', '', '', '']},
+             settings.namespace + '/' + 'article/ref-year': {'value': ['2010', '2008', '1995', '2001', '2012', '2001', '2009', '2009', '2011', '2008', '2011', '2003', '2009', '2011', '2012']},
+             settings.namespace + '/' + 'article/ref-source': {'value': ['Nat Rev Microbiol', 'J Clin Virol', 'Baillieres Clin Haematol', 'J Biomed Sci', 'J Infect Dis', 'Am J Trop Med Hyg', 'Ann N Y Acad Sci', '', '', '', 'Rev Bras Ter Intensiva', 'J Pediatr', 'Clin Infect Dis', 'Ann Acad Med Singapore', 'Am J Trop Med Hyg']},
+             settings.namespace + '/' + 'article/ref-volume': {'value': ['8', '42', '8', '8', '205', '65', '1171', '', '', '', '23', '143', '48', '40', '86']},
+             settings.namespace + '/' + 'article/ref-fpage': {'value': ['S7', '34', '249', '377', '1321', '840', 'E24', '', '', '', '125', '682', '1262', '539', '531']},
+             settings.namespace + '/' + 'article/ref-lpage': {'value': ['S16', '39', '270', '388', '1329', '847', '35', '', '', '', '133', '684', '1265', '537', '535']},
+             settings.namespace + '/' + 'article/ref-doi': {'value': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']},
+             settings.namespace + '/' + 'article/ref-pmid': {'value': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']},
+             settings.namespace + '/' + 'article/ref-collab': {'value': ['', '', '', '', '', '', '', 'WHO', 'WHO', '', '', '', '', '', '']},
+             settings.namespace + '/' + 'article/ref-publisher-loc': {'value': ['', '', '', '', '', '', '', 'Geneva', '', '', '', '', '', '', '']},
+             settings.namespace + '/' + 'article/ref-publisher-name': {'value': ['', '', '', '', '', '', '', 'World Health Organisation', '', '', '', '', '', '', '']},
+             
+             #settings.namespace + '/' + 'article/citation': {'value': ''},
+             
+             
             }
           ]
         ]
