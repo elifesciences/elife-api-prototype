@@ -10,7 +10,7 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
 
-test_xml_path = os.getcwd() + os.sep + os.pardir + os.sep +  "sample-xml" + os.sep
+test_xml_path = world.basedir + os.sep +  "sample-xml" + os.sep
 
 @step('I have the document (\S+)')
 def have_the_document(step, document):
