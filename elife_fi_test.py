@@ -1,5 +1,5 @@
 import settings
-import elife
+import elife_fi_test_data as elife
 import fluidinfo
 import urllib
 import json
@@ -23,9 +23,9 @@ fluidinfo.login(settings.username, settings.password)
 def main():
   # Create tags, namespaces are created automatically
   
-  createTags()
-  #updateValues(elife.objects)
-
+  #createTags()
+  updateValues(elife.objects)
+  
   # Clean up by deleting tags and namespaces
   #deleteValues(elife.objects)
   #deleteTags()
@@ -37,6 +37,19 @@ def createObject():
   headers, content = fluidinfo.post('/objects')
   obj = content['id']
   return obj
+
+def findObject(key, value):
+  """
+  Look for the object(s) using the key and key value
+  If found, return the ids
+  """
+  query = settings.namespace + '/' + key + ' = "' + value + '"'
+  headers, content = fluidinfo.get('/objects', query = query)
+
+  if(len(content['ids']) > 0):
+    return content['ids']
+  return None
+  
 
 def createTag(tag, desc, indexed=True):
   namespace, sep, tagname = tag.rpartition('/')
@@ -92,21 +105,29 @@ def updateValues(objects):
 
   for objrow in objects:
     # 1. If object ID is not specified, create one
+    key = objrow['key']
     
     if(len(objrow['obj']) == 0):
-      obj = createObject()
-      logger.info('created object: ' + obj)
+      # First try to find an existing object based on a key query
+      ids = findObject(key,  objrow[key])
+      if(ids == None):
+        obj = createObject()
+        logger.info('created object: ' + obj)
+      else:
+        # Use the first object found
+        obj = ids[0]
+        logger.info('using existing object: ' + obj)
     else:
       obj = objrow['obj']
       logger.info('using existing object: ' + obj)
 
-    # 2. Update the doi, our primary key
-    objpath = '/objects/' + obj + '/' + settings.namespace + '/article/doi'
-    headers, content = fluidinfo.put(objpath, objrow['doi'])
+    # 2. Update the primary key value, doi for articles, etc.
+    objpath = '/objects/' + obj + '/' + settings.namespace + '/' + key
+    headers, content = fluidinfo.put(objpath, objrow[key])
     if(int(headers['status']) == 204):
-      logger.info('added article/doi: ' + objrow['doi'])
+      logger.info('added ' + key + ': ' + objrow[key])
     else:
-      logger.warn('unhandled HTTP status for added article/doi: ' + objpath + ', ' + headers['status'])
+      logger.warn('unhandled HTTP status for added ' + key + ': ' + objpath + ', ' + headers['status'])
       
     # Wait time: if the object id is returned, then fluidinfo is aware of the object
     #   if no object id is returned, then fluidinfo is not aware yet, and therefore
@@ -116,15 +137,14 @@ def updateValues(objects):
     sleepSeconds = 2
     i = 0
     while(loop == True):
-      query = settings.namespace + '/article/doi = "' + objrow['doi'] + '"'
-      headers, content = fluidinfo.get('/objects', query = settings.namespace + '/article/doi = "' + objrow['doi'] + '"')
-      logger.info('checking for object: ' + objrow['doi'])
+      ids = findObject(key,  objrow[key])
+      logger.info('checking for object: ' + objrow[key])
 
-      if(len(content['ids']) <= 0):
+      if(ids == None):
         logger.info('sleeping: ' + str(sleepSeconds) + ' seconds (' + str(sleepSeconds * (i+1)) + ' sec total)' )
         sleep(sleepSeconds)
       else:
-        logger.info('object found: ' + objrow['doi'])
+        logger.info('object found: ' + objrow[key])
         loop = False
         
       i = i+1
@@ -134,24 +154,25 @@ def updateValues(objects):
     # 3. Assuming success at this point, issue the single loader query
     headers, content = fluidinfo.put('/values', body=objrow['query'])
     if(int(headers['status']) == 204):
-      logger.info('query successful on: ' + objpath + ' = ' + objrow['doi'])
+      logger.info('query successful on: ' + objpath + ' = ' + objrow[key])
     else:
-      logger.warn('error in query on: ' + objpath + ' = ' + objrow['doi'])
+      logger.warn('error in query on: ' + objpath + ' = ' + objrow[key])
 
 def deleteValues(objects):
   # Delete values of tags for the object
   #  matching about/doi, and using all schema tags as those to delete
   for objrow in objects:
-    path = settings.namespace + '/article/doi = "' + objrow['doi'] + '"'
+    key = objrow['key']
+    path = settings.namespace + '/' + key + ' = "' + objrow[key] + '"'
     tags = []
     for tag in elife.tags:
       tags.append(settings.namespace + '/' + tag['tag'])
 
     headers, content = fluidinfo.delete('/values', query=path, tags=tags)
     if(int(headers['status']) == 204):
-      logger.info('delete query successful on: about/doi = ' + objrow['doi'])
+      logger.info('delete query successful on: ' + key + ' = ' + objrow[key])
     else:
-      logger.warn('error in delete query on: about/doi = ' + objrow['doi'])
+      logger.warn('error in delete query on: ' + key + ' = ' + objrow[key])
     
 
 
