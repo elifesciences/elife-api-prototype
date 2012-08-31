@@ -14,6 +14,7 @@ test_xml_path = world.basedir + os.sep +  "sample-xml" + os.sep
 
 @step('I have the document (\S+)')
 def have_the_document(step, document):
+	world.document = document
 	file_location = set_file_location(document)
 	world.filecontent = pm.parse_document(file_location)
 
@@ -39,10 +40,12 @@ def then_i_see_the_identifier(step, string):
 def get_the_pmid(step):
 	world.pmid = pm.pmid(world.filecontent)
 
-@step(u'Then I see the number (\d+)')
+@step(u'Then I see the number (.*$)')
 def then_i_see_the_number(step, number):
+	if (number == 'None'):
+	  number = None
 	assert world.pmid == number, \
-		"Got %d" % world.pmid
+		"Got %d" % int(world.pmid)
 
 @step('I count the number of authors')
 def count_the_number_of_authors(step):
@@ -64,27 +67,15 @@ def then_i_get_the_total_number_of_references_as(step, number):
 	assert world.references_count == number, \
 		"Got %d" % world.references_count
 
-@step('When I count the number of references from (\d+)')
-def count_the_number_of_references_from_year(step, year):
+@step('When I count references from the year (\d+)')
+def count_referneces_from_the_year(step, year):
 	world.references_count = len(pm.get_references_by(world.filecontent, year = year))
 
-@step(u'Then I get the year\'s total references as (\d+)')
-def then_i_get_the_years_total_references_as(step, number):
-	number = int(number)
-	assert world.references_count == number, \
-		"Got %d" % world.references_count
-	
 @step('When I count the number of references from the journal (.*$)')
 def count_the_number_of_references_from_the_journal(step, journal):
 	if (journal == 'None'):
 	  journal = None
 	world.references_count = len(pm.get_references_by(world.filecontent, source = journal))
-
-@step(u'Then I get the total journal references as (\d+)')
-def then_i_get_the_total_journal_references_as(step, number):
-	number = int(number)
-	assert world.references_count == number, \
-		"Got %d" % world.references_count
 
 def set_file_location(doc):
 	document = doc.lstrip('"').rstrip('"')

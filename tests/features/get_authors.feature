@@ -12,4 +12,5 @@ Feature: get authors from the document
     | document                    | authors
 		| NLM3-sample-for-elife.1.xml | 4       
     | NLM3-sample-for-elife.2.xml | 3       
-    | elife-sample-jun2012.xml    | 26  
+    | elife-sample-jun2012.xml    | 26
+    | elife_pmc_preview_version_17.xml    | 8 

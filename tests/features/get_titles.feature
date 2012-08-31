@@ -13,3 +13,4 @@ Feature: parse the title
 		| NLM3-sample-for-elife.1.xml | CENP-C recruits M18BP1 to centromeres to promote CENP-A chromatin assembly
     | NLM3-sample-for-elife.2.xml | Arf6 regulates AP-1B&#x02013;dependent sorting in polarized epithelial cells
     | elife-sample-jun2012.xml    | Prophylactic Platelets in Dengue: Survey Responses Highlight Lack of an Evidence Base
+    | elife_pmc_preview_version_17.xml    | Bacterial regulation of colony development in the closest living relatives of animals

@@ -12,3 +12,4 @@ Feature: parse the article pmid
     | document                    | number   
 		| NLM3-sample-for-elife.1.xml | 21911481 
     | NLM3-sample-for-elife.2.xml | 21911479
+    | elife_pmc_preview_version_17.xml | None

@@ -35,7 +35,10 @@ def revert_entities(function):
 	return wrapper
 
 def parse_document(filelocation):
-	soup = BeautifulSoup(open(filelocation), "lxml")
+	return parse_xml(open(filelocation))
+
+def parse_xml(xml):
+	soup = BeautifulSoup(xml, "lxml")
 	return soup
 
 def extract_nodes(soup, nodename):
@@ -60,8 +63,11 @@ def extract_node_text(soup, nodename):
 		return None
 	return tag_text
 
-@revert_entities # make cleaning up the entiteis a decorator, as we may be able to drop all this code later
 def title(soup):
+	return article_title(soup)
+	
+@revert_entities # make cleaning up the entiteis a decorator, as we may be able to drop all this code later
+def article_title(soup):
 	title_text = extract_node_text(soup, "article-title")
 	return title_text
 
@@ -94,7 +100,7 @@ def references(soup):
 def get_references_by(soup, year = 0, source = ''):
 	"""Get references by attributes, boolean 'or' match"""
 	refs = []
-	if(year>0):
+	if(int(year) > 0):
 		for ref in references(soup):
 			if int(extract_node_text(ref, "year")) == int(year):
 				refs.append(ref)

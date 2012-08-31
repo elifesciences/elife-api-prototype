@@ -13,11 +13,12 @@ Feature: get references from the document
 		| NLM3-sample-for-elife.1.xml | 57
 		| NLM3-sample-for-elife.2.xml | 63
 		| elife-sample-jun2012.xml    | 15
+    | elife_pmc_preview_version_17.xml | 103
 		
   Scenario Outline: Count the number of references from a particular year
     Given I have the document <document>
-		When I count the number of references from <year>
-		Then I get the year's total references as <references>
+		When I count references from the year <year>
+		Then I get the total number of references as <references>
 		
   Examples:
     | document                    | year | references
@@ -28,7 +29,7 @@ Feature: get references from the document
   Scenario Outline: Count the number of references from a particular journal
     Given I have the document <document>
 		When I count the number of references from the journal <journal>
-		Then I get the total journal references as <references>
+		Then I get the total number of references as <references>
 		
   Examples:
     | document                    | journal           | references

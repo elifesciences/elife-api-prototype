@@ -5,6 +5,7 @@ namespaces = [
   {'namespace': 'person'},
   {'namespace': 'ref'},
   {'namespace': 'alm'},
+  {'namespace': 'alm_source'},
 ]
 
 tags = [
@@ -24,6 +25,7 @@ tags = [
   {'tag': 'article/subject_area',		'desc': ''},
   {'tag': 'article/research_organism',		'desc': ''},
   {'tag': 'article/authors',		'desc': ''},
+  {'tag': 'article/authors_id',		'desc': ''},
   {'tag': 'article/authors_surname',		'desc': ''},
   {'tag': 'article/authors_given_names',		'desc': ''},
   {'tag': 'article/authors_department',		'desc': ''},
@@ -101,8 +103,14 @@ tags = [
   {'tag': 'ref/publisher_loc',		'desc': ''},
   {'tag': 'ref/publisher_name',		'desc': ''},
 
+  {'tag': 'alm_source/source',		'desc': ''},
+  {'tag': 'alm_source/url',		'desc': ''},
+  {'tag': 'alm_source/name',		'desc': ''},
+  {'tag': 'alm_source/trusted',		'desc': ''},
+	
   {'tag': 'alm/doi',		'desc': ''},
   {'tag': 'alm/source',		'desc': ''},
+  {'tag': 'alm/type',		'desc': ''},
   {'tag': 'alm/value',		'desc': ''},
   {'tag': 'alm/timespan',		'desc': ''},
   {'tag': 'alm/date_date',		'desc': ''},
@@ -112,7 +120,6 @@ tags = [
   {'tag': 'alm/date_timestamp',		'desc': ''},
   {'tag': 'alm/complete',		'desc': ''},
   {'tag': 'alm/temp_key',		'desc': ''},
-  
 ]
 
 objects = [
@@ -136,13 +143,14 @@ objects = [
              settings.namespace + '/' + 'article/article_country': {'value': 'United States of America'},
              settings.namespace + '/' + 'article/subject_area': {'value': 'Microbiology and infectious disease'},
              settings.namespace + '/' + 'article/research_organism': {'value': 'None'},
-             settings.namespace + '/' + 'article/authors': {'value': ['James Whitehorn','Rosmari Rodriguez Roche','Maria G. Guzman','Eric Martinez','Wilmar Villamil Gomez','Leonard Nainggolan','Ida Safitri Laksono','Ajay Mishra','Lucy Lum','Abul Faiz','Amadou Sall','Joshua Dawurung','Alvaro Borges','Alvaro Borges','Yee-Sin Leo','Lucille Blumberg','Daniel G. Bausch','Axel Kroeger','Olaf Horstick','Guy Thwaites','Heiman Wertheim','Mattias Larsson','Tran Tinh Hien','Rosanna Peeling','Bridget Wills','Cameron Simmons','Jeremy Farrar']},
-             settings.namespace + '/' + 'article/authors_surname': {'value': ['Whitehorn','Roche','Guzman','Martinez','Villamil Gomez','Nainggolan','Laksono','Mishra','Lum','Faiz','Sall','Dawurung','Borges','Borges','Leo','Blumberg','Bausch','Kroeger','Horstick','Thwaites','Wertheim','Larsson','Hien','Peeling','Wills','Simmons','Farrar']},
-             settings.namespace + '/' + 'article/authors_given_names': {'value': ['James','Rosmari Rodriguez','Maria G.','Eric','Wilmar','Leonard','Ida Safitri','Ajay','Lucy','Abul','Amadou','Joshua','Alvaro','Alvaro','Yee-Sin','Lucille','Daniel G.','Axel','Olaf','Guy','Heiman','Mattias','Tran Tinh','Rosanna','Bridget','Cameron','Jeremy']},
-             settings.namespace + '/' + 'article/authors_department': {'value': ['Department of Clinical Research; Oxford University Clinical Research Unit', '', '', '', '', '', 'Paediatric Department', '', 'Department of Paediatrics', '', '', '', 'Copenhagen HIV Programme', '', 'Department of Infectious Diseases', '', '', 'Special Programme for Research and Training in Tropical Diseases', '', 'Department of Infectious Disease/Centre for Clinical Infection and Diagnostics Research', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Department of Clinical Research', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit']},
-             settings.namespace + '/' + 'article/authors_institution': {'value': ['London School of Hygiene and Tropical Medicine; Hospital for Tropical Diseases', 'Instituto de Medicina Tropical Pedro Kouri', 'Instituto de Medicina Tropical Pedro Kouri', 'Instituto de Medicina Tropical Pedro Kouri', 'Hospital Universitario de Sincelejo', 'University of Indonesia', 'Gadjah Mada University', 'Sunderlal Memorial Hospital', 'University of Malaya', 'Sir Sallimullah Medical College', 'Institute Pasteur', 'University of Maiduguri Teaching Hospital', 'University of Copenhagen', 'University Hospital, Federal University of Minas Gerais', 'Tan Tock Seng Hospital', 'National Institute for Communicable Diseases', 'Tulane School of Public Health and Tropical Medicine', 'World Health Organization', 'Institute of Public Health, University of Heidelberg', 'King\'s College London', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'London School of Hygiene and Tropical Medicine', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases']},
-             settings.namespace + '/' + 'article/authors_city': {'value': ['London; Ho Chi Minh City', 'Havana', 'Havana', 'Havana', 'Sincelejo', 'Jakarta', 'Yogyakarta', 'Delhi', 'Kuala Lumpur', 'Dhaka', 'Dakar', 'Borno State', 'Copenhagen', 'Belo Horizonte', 'Singapore', 'Johannesburg', 'New Orleans, Louisiana', 'Geneva', 'Heidelberg', 'London', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Ho Chi Minh City', 'London', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Ho Chi Minh City']},
-             settings.namespace + '/' + 'article/authors_country': {'value': ['United Kingdom; Vietnam', 'Cuba', 'Cuba', 'Cuba', 'Colombia', 'Indonesia', 'Indonesia', 'India', 'Malaysia', 'Bangladesh', 'Senegal', 'Nigeria', 'Denmark', 'Brazil', 'Singapore', 'South Africa', 'United States of America', 'Switzerland', 'Germany', 'United Kingdom', 'Vietnam', 'Vietnam', 'Vietnam', 'United Kingdom', 'Vietnam', 'Vietnam', 'Vietnam']},
+             settings.namespace + '/' + 'article/authors': {'value': ['James Whitehorn','Rosmari Rodriguez Roche','Maria G. Guzman','Eric Martinez','Wilmar Villamil Gomez','Leonard Nainggolan','Ida Safitri Laksono','Ajay Mishra','Lucy Lum','Abul Faiz','Amadou Sall','Joshua Dawurung','Alvaro Borges','Yee-Sin Leo','Lucille Blumberg','Daniel G. Bausch','Axel Kroeger','Olaf Horstick','Guy Thwaites','Heiman Wertheim','Mattias Larsson','Tran Tinh Hien','Rosanna Peeling','Bridget Wills','Cameron Simmons','Jeremy Farrar']},
+             settings.namespace + '/' + 'article/authors_id': {'value': ['','','','','','','','','','','','','','','','','','','','','','','','','','']},
+             settings.namespace + '/' + 'article/authors_surname': {'value': ['Whitehorn','Roche','Guzman','Martinez','Villamil Gomez','Nainggolan','Laksono','Mishra','Lum','Faiz','Sall','Dawurung','Borges','Leo','Blumberg','Bausch','Kroeger','Horstick','Thwaites','Wertheim','Larsson','Hien','Peeling','Wills','Simmons','Farrar']},
+             settings.namespace + '/' + 'article/authors_given_names': {'value': ['James','Rosmari Rodriguez','Maria G.','Eric','Wilmar','Leonard','Ida Safitri','Ajay','Lucy','Abul','Amadou','Joshua','Alvaro','Yee-Sin','Lucille','Daniel G.','Axel','Olaf','Guy','Heiman','Mattias','Tran Tinh','Rosanna','Bridget','Cameron','Jeremy']},
+             settings.namespace + '/' + 'article/authors_department': {'value': ['Department of Clinical Research; Oxford University Clinical Research Unit', '', '', '', '', '', 'Paediatric Department', '', 'Department of Paediatrics', '', '', '', 'Copenhagen HIV Programme; ', 'Department of Infectious Diseases', '', '', 'Special Programme for Research and Training in Tropical Diseases', '', 'Department of Infectious Disease/Centre for Clinical Infection and Diagnostics Research', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Department of Clinical Research', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit']},
+             settings.namespace + '/' + 'article/authors_institution': {'value': ['London School of Hygiene and Tropical Medicine; Hospital for Tropical Diseases', 'Instituto de Medicina Tropical Pedro Kouri', 'Instituto de Medicina Tropical Pedro Kouri', 'Instituto de Medicina Tropical Pedro Kouri', 'Hospital Universitario de Sincelejo', 'University of Indonesia', 'Gadjah Mada University', 'Sunderlal Memorial Hospital', 'University of Malaya', 'Sir Sallimullah Medical College', 'Institute Pasteur', 'University of Maiduguri Teaching Hospital', 'University of Copenhagen; University Hospital, Federal University of Minas Gerais', 'Tan Tock Seng Hospital', 'National Institute for Communicable Diseases', 'Tulane School of Public Health and Tropical Medicine', 'World Health Organization', 'Institute of Public Health, University of Heidelberg', 'King\'s College London', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'London School of Hygiene and Tropical Medicine', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases']},
+             settings.namespace + '/' + 'article/authors_city': {'value': ['London; Ho Chi Minh City', 'Havana', 'Havana', 'Havana', 'Sincelejo', 'Jakarta', 'Yogyakarta', 'Delhi', 'Kuala Lumpur', 'Dhaka', 'Dakar', 'Borno State', 'Copenhagen; Belo Horizonte', 'Singapore', 'Johannesburg', 'New Orleans, Louisiana', 'Geneva', 'Heidelberg', 'London', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Ho Chi Minh City', 'London', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Ho Chi Minh City']},
+             settings.namespace + '/' + 'article/authors_country': {'value': ['United Kingdom; Vietnam', 'Cuba', 'Cuba', 'Cuba', 'Colombia', 'Indonesia', 'Indonesia', 'India', 'Malaysia', 'Bangladesh', 'Senegal', 'Nigeria', 'Denmark; Brazil', 'Singapore', 'South Africa', 'United States of America', 'Switzerland', 'Germany', 'United Kingdom', 'Vietnam', 'Vietnam', 'Vietnam', 'United Kingdom', 'Vietnam', 'Vietnam', 'Vietnam']},
              settings.namespace + '/' + 'article/authors_corresponding': {'value': 'James Whitehorn'},
              settings.namespace + '/' + 'article/authors_corresponding_surname': {'value': 'Whitehorn'},
              settings.namespace + '/' + 'article/authors_corresponding_given_names': {'value': 'James'},
@@ -643,6 +651,41 @@ objects = [
 			}
 		},
 		
+		# Sample ALM data sources
+    {'obj': '',
+		 'key': 'alm_source/source',
+		 'alm_source/source': 'highwire',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'alm_source/source = "highwire"',
+            {
+             settings.namespace + '/' + 'alm_source/url': {'value': 'http://highwire.org/'},
+             settings.namespace + '/' + 'alm_source/name': {'value': 'HighWire'},
+             settings.namespace + '/' + 'alm_source/trusted': {'value': True},
+						}
+					]
+				]
+			}
+		},
+		
+    {'obj': '',
+		 'key': 'alm_source/source',
+		 'alm_source/source': 'total-impact',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'alm_source/source = "total-impact"',
+            {
+             settings.namespace + '/' + 'alm_source/url': {'value': 'http://total-impact.org/'},
+             settings.namespace + '/' + 'alm_source/name': {'value': 'total-impact'},
+             settings.namespace + '/' + 'alm_source/trusted': {'value': True},
+						}
+					]
+				]
+			}
+		},
+		
 		# Sample (fake) ALM data - kludge: use concatenated values as a "key" for now
     {'obj': '',
 		 'key': 'alm/temp_key',
@@ -654,7 +697,8 @@ objects = [
             {
              settings.namespace + '/' + 'alm/temp_key': {'value': '10.7554/eLife.000536_pdf_month_August_2012'},
              settings.namespace + '/' + 'alm/doi': {'value': '10.7554/eLife.000536'},
-             settings.namespace + '/' + 'alm/source': {'value': 'pdf'},
+						 settings.namespace + '/' + 'alm/type': {'value': 'pdf'},
+             settings.namespace + '/' + 'alm/source': {'value': 'highwire'},
              settings.namespace + '/' + 'alm/value': {'value': '10'},
              settings.namespace + '/' + 'alm/timespan': {'value': 'month'},
              settings.namespace + '/' + 'alm/date_date': {'value': 'August, 2012'},
@@ -679,7 +723,8 @@ objects = [
             {
              settings.namespace + '/' + 'alm/temp_key': {'value': '10.7554/eLife.000536_pdf_day_August_1_2012'},
              settings.namespace + '/' + 'alm/doi': {'value': '10.7554/eLife.000536'},
-             settings.namespace + '/' + 'alm/source': {'value': 'pdf'},
+						 settings.namespace + '/' + 'alm/type': {'value': 'pdf'},
+             settings.namespace + '/' + 'alm/source': {'value': 'highwire'},
              settings.namespace + '/' + 'alm/value': {'value': '1'},
              settings.namespace + '/' + 'alm/timespan': {'value': 'day'},
              settings.namespace + '/' + 'alm/date_date': {'value': 'August 1, 2012'},
@@ -704,7 +749,8 @@ objects = [
             {
              settings.namespace + '/' + 'alm/temp_key': {'value': '10.7554/eLife.000536_web_month_August_2012'},
              settings.namespace + '/' + 'alm/doi': {'value': '10.7554/eLife.000536'},
-             settings.namespace + '/' + 'alm/source': {'value': 'web'},
+						 settings.namespace + '/' + 'alm/type': {'value': 'web'},
+             settings.namespace + '/' + 'alm/source': {'value': 'highwire'},
              settings.namespace + '/' + 'alm/value': {'value': '42'},
              settings.namespace + '/' + 'alm/timespan': {'value': 'month'},
              settings.namespace + '/' + 'alm/date_date': {'value': 'August, 2012'},
@@ -729,7 +775,8 @@ objects = [
             {
              settings.namespace + '/' + 'alm/temp_key': {'value': '10.7554/eLife.000536_web_year_2012'},
              settings.namespace + '/' + 'alm/doi': {'value': '10.7554/eLife.000536'},
-             settings.namespace + '/' + 'alm/source': {'value': 'web'},
+						 settings.namespace + '/' + 'alm/type': {'value': 'web'},
+             settings.namespace + '/' + 'alm/source': {'value': 'highwire'},
              settings.namespace + '/' + 'alm/value': {'value': '420'},
              settings.namespace + '/' + 'alm/timespan': {'value': 'year'},
              settings.namespace + '/' + 'alm/date_date': {'value': '2012'},
@@ -754,7 +801,8 @@ objects = [
             {
              settings.namespace + '/' + 'alm/temp_key': {'value': '10.7554/eLife.000536_web_total'},
              settings.namespace + '/' + 'alm/doi': {'value': '10.7554/eLife.000536'},
-             settings.namespace + '/' + 'alm/source': {'value': 'web'},
+						 settings.namespace + '/' + 'alm/type': {'value': 'web'},
+             settings.namespace + '/' + 'alm/source': {'value': 'highwire'},
              settings.namespace + '/' + 'alm/value': {'value': '462'},
              settings.namespace + '/' + 'alm/timespan': {'value': 'total'},
              #settings.namespace + '/' + 'alm/date_date': {'value': '2012'},
@@ -779,7 +827,8 @@ objects = [
             {
              settings.namespace + '/' + 'alm/temp_key': {'value': '10.7554/eLife.000536_twitter_year_2012'},
              settings.namespace + '/' + 'alm/doi': {'value': '10.7554/eLife.000536'},
-             settings.namespace + '/' + 'alm/source': {'value': 'twitter'},
+             settings.namespace + '/' + 'alm/type': {'value': 'twitter'},
+             settings.namespace + '/' + 'alm/source': {'value': 'total-impact'},
              settings.namespace + '/' + 'alm/value': {'value': '8'},
              settings.namespace + '/' + 'alm/timespan': {'value': 'year'},
              settings.namespace + '/' + 'alm/date_date': {'value': '2012'},
