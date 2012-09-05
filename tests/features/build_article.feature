@@ -18,6 +18,8 @@ Feature: Create an article object and parse XML input
     | NLM3-sample-for-elife.1.xml      | parseNLM | 10.1083/jcb.201106079
     | NLM3-sample-for-elife.2.xml      | parseNLM | 10.1083/jcb.201106010
 
+
+
   Scenario Outline: Check an article object properties after parsing XML
     Given I have an article object with the doi <doi>
     And the article object has the doi <doi>
@@ -42,8 +44,32 @@ Feature: Create an article object and parse XML input
     | 10.7554/eLife.00013   | doi_url           | http://dx.doi.org/10.7554/eLife.00013
     | 10.7554/eLife.00013   | pmid              | None
     | 10.7554/eLife.00013   | article_title     | Bacterial regulation of colony development in the closest living relatives of animals
+		
+    | 10.7554/eLife.00013   | article_institution  | None
+    | 10.1083/jcb.201106079 | article_institution  | Department of Biochemistry, Stanford University Medical School, Stanford, CA 94305
 
-
-
-
+		| 10.7554/eLife.00013   | subject_area   | Cell biology
+		
+    | 10.7554/eLife.00013   | pub_date_date  | August 31, 2012
+    | 10.1083/jcb.201106079 | pub_date_date  | September 19, 2011
+		| 10.7554/eLife.000536  | pub_date_date  | June 26, 2012
+		
+		
+		
+  Scenario Outline: Check an article object property list length after parsing XML
+    Given I have an article object with the doi <doi>
+    And the article object has the doi <doi>
+		And the article object has the property <property>
+		Then the article object property has the total length <length>
+	
+  Examples:
+    | doi                   | property          | length
+		
+    | 10.7554/eLife.00013   | author_notes      | 3
+    | 10.1083/jcb.201106079 | author_notes      | 1
+		
+    | 10.7554/eLife.00013   | keywords          | 4
+    | 10.1083/jcb.201106079 | keywords          | 0
+		
+		
 		

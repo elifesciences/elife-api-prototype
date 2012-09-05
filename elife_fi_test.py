@@ -25,7 +25,7 @@ def main():
   
   #createTags()
   updateValues(elife.objects)
-  
+
   # Clean up by deleting tags and namespaces
   #deleteValues(elife.objects)
   #deleteTags()

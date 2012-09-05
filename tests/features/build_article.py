@@ -32,9 +32,12 @@ def the_article_object_has_the_doi(step, string):
 
 @step('Given I have an article object with the doi (.*$)')
 def i_have_an_article_object_with_the_doi_doi(step, doi):
-	if(world.a[doi]):
+	try:
 	  world.article = world.a[doi]
-
+	except KeyError:
+		assert False, \
+			"No object with doi %s" % doi
+	
 @step('And the article has parsed an XML document')
 def the_article_has_parsed_an_XML_document(step):
 	assert world.article.parsed == True
@@ -50,4 +53,17 @@ def the_article_object_property_has_the_value(step, value):
 	  value = None
 	assert property == value, \
 		"Got %s" % property
+	
+@step('Then the article object property has the total length (.*$)')
+def the_article_object_property_has_the_total_length(step, length):
+	property = eval('world.article.' + world.property)
+	if(type(property) == list):
+		property_length = len(property)
+	elif(property != None):
+		property_length = 1
+	else:
+		property_length = 0
+
+	assert property_length == int(length), \
+		"Got %s" % property_length
 	

@@ -83,7 +83,6 @@ tags = [
   {'tag': 'article/refs_collab',		'desc': ''},
   {'tag': 'article/refs_publisher_loc',		'desc': ''},
   {'tag': 'article/refs_publisher_name',		'desc': ''},
-  {'tag': 'article/citation',		'desc': ''},
   {'tag': 'article/xml',		'desc': ''},
   
   {'tag': 'person/surname',		'desc': ''},
@@ -211,7 +210,6 @@ objects = [
              settings.namespace + '/' + 'article/refs_publisher_loc': {'value': ['', '', '', '', '', '', '', 'Geneva', '', '', '', '', '', '', '']},
              settings.namespace + '/' + 'article/refs_publisher_name': {'value': ['', '', '', '', '', '', '', 'World Health Organisation', '', '', '', '', '', '', '']},
              
-             #settings.namespace + '/' + 'article/citation': {'value': ''},
              settings.namespace +  '/' + 'article/xml': {'value': """<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "journalpublishing3.dtd"><article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article"><front><journal-meta><journal-id journal-id-type="nlm-ta">eLife</journal-id><journal-id journal-id-type="hwp">eLife</journal-id><journal-id journal-id-type="publisher-id">eLife</journal-id><journal-title-group><journal-title>eLife</journal-title></journal-title-group><issn pub-type="epub">2050-084X</issn><publisher><publisher-name>eLife Sciences Publications, Ltd</publisher-name></publisher></journal-meta><article-meta>
 <article-id pub-id-type="doi">10.7554/eLife.000536</article-id>
 <article-categories>
