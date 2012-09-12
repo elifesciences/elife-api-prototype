@@ -6,6 +6,7 @@ namespaces = [
   {'namespace': 'ref'},
   {'namespace': 'alm'},
   {'namespace': 'alm_source'},
+  {'namespace': 'component'},
 ]
 
 tags = [
@@ -119,6 +120,11 @@ tags = [
   {'tag': 'alm/date_timestamp',		'desc': ''},
   {'tag': 'alm/complete',		'desc': ''},
   {'tag': 'alm/temp_key',		'desc': ''},
+	
+  {'tag': 'component/doi',		'desc': ''},
+  {'tag': 'component/type',		'desc': ''},
+  {'tag': 'component/content',		'desc': ''},
+  {'tag': 'component/article_doi',		'desc': ''},
 ]
 
 objects = [

@@ -13,7 +13,7 @@ Feature: Create an article object and parse XML input
 	
   Examples:
     | document                         | parser   | doi
-    | elife_pmc_preview_version_17.xml | parseNLM | 10.7554/eLife.00013
+    | elife-kitchen-sink.xml           | parseNLM | 10.7554/eLife.00013
     | elife-sample-jun2012.xml         | parseNLM | 10.7554/eLife.000536
     | NLM3-sample-for-elife.1.xml      | parseNLM | 10.1083/jcb.201106079
     | NLM3-sample-for-elife.2.xml      | parseNLM | 10.1083/jcb.201106010
@@ -48,7 +48,8 @@ Feature: Create an article object and parse XML input
     | 10.7554/eLife.00013   | article_institution  | None
     | 10.1083/jcb.201106079 | article_institution  | Department of Biochemistry, Stanford University Medical School, Stanford, CA 94305
 
-		| 10.7554/eLife.00013   | subject_area   | Cell biology
+		| 10.7554/eLife.00013   | article_type   | research-article
+		| 10.1083/jcb.201106079 | article_type   | research-article
 		
     | 10.7554/eLife.00013   | pub_date_date  | August 31, 2012
     | 10.1083/jcb.201106079 | pub_date_date  | September 19, 2011
@@ -65,11 +66,13 @@ Feature: Create an article object and parse XML input
   Examples:
     | doi                   | property          | length
 		
-    | 10.7554/eLife.00013   | author_notes      | 3
+    | 10.7554/eLife.00013   | author_notes      | 2
     | 10.1083/jcb.201106079 | author_notes      | 1
 		
     | 10.7554/eLife.00013   | keywords          | 4
     | 10.1083/jcb.201106079 | keywords          | 0
+		
+    | 10.7554/eLife.00013   | subject_area      | 3
 		
 		
 		

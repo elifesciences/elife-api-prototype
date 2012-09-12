@@ -46,6 +46,24 @@ def flatten(function):
 		return value
 	return wrapper
 
+def strip_strings(value):
+	"""
+	Strip excess whitespace, on strings, and simple lists
+	using recursion
+	"""
+	if (value == None):
+		return None
+	elif (type(value) == list):
+		# List, so recursively strip elements
+		for i in range(0, len(value)):
+			value[i] = strip_strings(value[i])
+		return value
+	else:
+		try:
+			return value.strip()
+		except(AttributeError):
+			return value
+
 def revert_entities(function):
 	"this is the decorator"
 	def wrapper(*args, **kwargs):
@@ -117,7 +135,11 @@ def article_title(soup):
 	return title_text
 
 def doi(soup):
-	doi = extract_node_text(soup, "article-id", attr = "pub-id-type", value = "doi")
+	doi_tags = extract_nodes(soup, "article-id", attr = "pub-id-type", value = "doi")
+	for tag in doi_tags:
+		# Only look at the doi tag directly inside the article-meta section
+		if (tag.parent.name == "article-meta"):
+			doi = tag.text
 	return doi
 		
 def pmid(soup):
@@ -163,6 +185,7 @@ def journal_id(soup):
 def journal_title(soup):
 	"""Find and return the journal title"""
 	journal_title = extract_node_text(soup, "journal-title")
+	journal_title = strip_strings(journal_title)
 	return journal_title
 
 def journal_issn(soup, pub_type = None):
@@ -173,34 +196,31 @@ def journal_issn(soup, pub_type = None):
 	if (pub_type == None):
 		return None
 	journal_issn = extract_node_text(soup, "issn", attr = "pub-type", value = pub_type)
+	journal_issn = strip_strings(journal_issn)
 	return journal_issn
 
 def publisher(soup):
 	publisher = extract_node_text(soup, "publisher-name")
+	publisher = strip_strings(publisher)
 	return publisher
 
 def abstract(soup):
 	abstract = extract_node_text(soup, "abstract")
+	abstract = strip_strings(abstract)
 	return abstract
 
 @flatten
 def article_type(soup):
 	"""
-	Find the article_type from the subject values, of which
-	some articles may have more than one
+	Find the article_type from the article tag root XML attribute
 	"""
-	article_type = []
+	article_type = None
+	article = extract_nodes(soup, "article")
 	try:
-		article_meta = extract_nodes(soup, "article-meta")
-		article_categories = extract_nodes(article_meta[0], "article-categories")
-		subj_group = extract_nodes(article_meta[0], "subj-group")
-		tags = extract_nodes(subj_group[0], "subject")
-		for tag in tags:
-			article_type.append(tag.text)
-	except(IndexError):
-		# Tag not found
+		article_type = article[0]['article-type']	
+	except(KeyError,IndexError):
+		# Attribute or tag not found
 		return None
-	
 	return article_type
 
 def get_article_meta_aff(soup):
@@ -257,16 +277,22 @@ def get_kwd_group(soup):
 
 def subject_area(soup):
 	"""
-	Find the major-subject-area from the set of kwd-group tags
+	Find the subject areas from article-categories subject tags
 	"""
-	subject_area = None
-	kwd_group = get_kwd_group(soup)
-	for tag in kwd_group:
-		try:
-			if(tag["kwd-group-type"] == "major-subject-area"):
-				subject_area = extract_node_text(tag, "kwd")
-		except KeyError:
-			continue
+	subject_area = []
+	try:
+		article_meta = extract_nodes(soup, "article-meta")
+		article_categories = extract_nodes(article_meta[0], "article-categories")
+		subj_group = extract_nodes(article_categories[0], "subj-group")
+		for tag in subj_group:
+			tags = extract_nodes(tag, "subject")
+			for t in tags:
+				subject_area.append(tag.text)
+				
+	except(IndexError):
+		# Tag not found
+		return None
+	subject_area = strip_strings(subject_area)
 	return subject_area
 
 @flatten
@@ -315,6 +341,7 @@ def correspondence(soup):
 	except(IndexError):
 		# Tag not found
 		return None
+	correspondence = strip_strings(correspondence)
 	return correspondence
 
 @flatten
@@ -327,10 +354,19 @@ def author_notes(soup):
 		author_notes_section = extract_nodes(soup, "author-notes")
 		fn = extract_nodes(author_notes_section[0], "fn")
 		for f in fn:
-			author_notes.append(f.text)
+			try:
+				if(f['fn-type'] != 'present-address'):
+					author_notes.append(f.text)
+				else:
+					# Throw it away if it is a present-address footnote
+					continue
+			except(KeyError):
+				# Append if the fn-type attribute does not exist
+				author_notes.append(f.text)
 	except(IndexError):
 		# Tag not found
 		return None
+	author_notes = strip_strings(author_notes)
 	return author_notes
 
 def get_ymd(soup):
@@ -661,6 +697,7 @@ def ack(soup):
 	"""
 	ack = None
 	ack = extract_node_text(soup, "ack")
+	ack = strip_strings(ack)
 	return ack
 
 def conflict(soup):
@@ -672,4 +709,5 @@ def conflict(soup):
 		conflict = extract_node_text(soup, "fn", attr = "fn-type", value = "conflict")
 	except KeyError:
 		return None
+	conflict = strip_strings(conflict)
 	return conflict
