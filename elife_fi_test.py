@@ -24,11 +24,8 @@ def main():
   # Create tags, namespaces are created automatically
   
   #createTags()
-  #updateValues(elife.objects)
-  createTag('/gnott/elife_v1/component/doi', '')
-  createTag('/gnott/elife_v1/component/type', '')
-  createTag('/gnott/elife_v1/component/content', '')
-  createTag('/gnott/elife_v1/component/article_doi', '')
+  updateValues(elife.objects)
+
   # Clean up by deleting tags and namespaces
   #deleteValues(elife.objects)
   #deleteTags()
