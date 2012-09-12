@@ -63,6 +63,15 @@ def strip_strings(value):
 			return value.strip()
 		except(AttributeError):
 			return value
+		
+def strippen(function):
+	"""
+	Strip excess whitespace as a decorator
+	"""
+	def wrapper(*args, **kwargs):
+		value = function(*args, **kwargs)
+		return strip_strings(value)
+	return wrapper
 
 def revert_entities(function):
 	"this is the decorator"
@@ -182,12 +191,14 @@ def journal_id(soup):
 	journal_id = extract_node_text(soup, "journal-ids", attr = "journal-id-type", value = "hwp")
 	return journal_id
 
+@strippen
+@flatten
 def journal_title(soup):
 	"""Find and return the journal title"""
 	journal_title = extract_node_text(soup, "journal-title")
-	journal_title = strip_strings(journal_title)
 	return journal_title
 
+@strippen
 def journal_issn(soup, pub_type = None):
 	"""
 	Find and return the journal ISSN
@@ -196,17 +207,16 @@ def journal_issn(soup, pub_type = None):
 	if (pub_type == None):
 		return None
 	journal_issn = extract_node_text(soup, "issn", attr = "pub-type", value = pub_type)
-	journal_issn = strip_strings(journal_issn)
 	return journal_issn
 
+@strippen
 def publisher(soup):
 	publisher = extract_node_text(soup, "publisher-name")
-	publisher = strip_strings(publisher)
 	return publisher
 
+@strippen
 def abstract(soup):
 	abstract = extract_node_text(soup, "abstract")
-	abstract = strip_strings(abstract)
 	return abstract
 
 @flatten
@@ -275,6 +285,7 @@ def get_kwd_group(soup):
 	kwd_group = extract_nodes(soup, 'kwd-group')
 	return kwd_group
 
+@strippen
 def subject_area(soup):
 	"""
 	Find the subject areas from article-categories subject tags
@@ -292,7 +303,6 @@ def subject_area(soup):
 	except(IndexError):
 		# Tag not found
 		return None
-	subject_area = strip_strings(subject_area)
 	return subject_area
 
 @flatten
@@ -329,6 +339,7 @@ def keywords(soup):
 				keywords.append(k.text)
 	return keywords
 
+@strippen
 def correspondence(soup):
 	"""
 	Find the corresp tags included in author-notes
@@ -341,10 +352,10 @@ def correspondence(soup):
 	except(IndexError):
 		# Tag not found
 		return None
-	correspondence = strip_strings(correspondence)
 	return correspondence
 
 @flatten
+@strippen
 def author_notes(soup):
 	"""
 	Find the fn tags included in author-notes
@@ -366,7 +377,6 @@ def author_notes(soup):
 	except(IndexError):
 		# Tag not found
 		return None
-	author_notes = strip_strings(author_notes)
 	return author_notes
 
 def get_ymd(soup):
@@ -691,15 +701,16 @@ def license_url(soup):
 		return None
 	return license_url
 
+@strippen
 def ack(soup):
 	"""
 	Find the acknowledgements in the ack tag
 	"""
 	ack = None
 	ack = extract_node_text(soup, "ack")
-	ack = strip_strings(ack)
 	return ack
 
+@strippen
 def conflict(soup):
 	"""
 	Find the conflict notes in footnote tag
@@ -709,5 +720,4 @@ def conflict(soup):
 		conflict = extract_node_text(soup, "fn", attr = "fn-type", value = "conflict")
 	except KeyError:
 		return None
-	conflict = strip_strings(conflict)
 	return conflict

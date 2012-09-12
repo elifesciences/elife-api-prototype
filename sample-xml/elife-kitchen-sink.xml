@@ -278,7 +278,7 @@
 	</license>
 	</permissions>
 
-	<self-uri xlink:title="pdf" xlink:href="elife00013.pdf"/>
+	<self-uri content-type="pdf" xlink:href="elife00013.pdf"/>
 	<related-article related-article-type="in-this-issue" ext-link-type="doi" xlink:href="10.7554/eLife.000007" id="ra1">XXX</related-article>
 
 
@@ -433,7 +433,7 @@
 <custom-meta-group>
 	<custom-meta >
 	<meta-name>elife-xml-version</meta-name>
-	<meta-value>0.3</meta-value>
+	<meta-value>0.4</meta-value>
 	</custom-meta>
 	<custom-meta >
 	<meta-name>author-impact-statement</meta-name>
