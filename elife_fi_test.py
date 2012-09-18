@@ -107,6 +107,8 @@ def updateValues(objects):
     # 1. If object ID is not specified, create one
     key = objrow['key']
     
+    ids = None
+    
     if(len(objrow['obj']) == 0):
       # First try to find an existing object based on a key query
       ids = findObject(key,  objrow[key])
@@ -121,35 +123,38 @@ def updateValues(objects):
       obj = objrow['obj']
       logger.info('using existing object: ' + obj)
 
-    # 2. Update the primary key value, doi for articles, etc.
     objpath = '/objects/' + obj + '/' + settings.namespace + '/' + key
-    headers, content = fluidinfo.put(objpath, objrow[key])
-    if(int(headers['status']) == 204):
-      logger.info('added ' + key + ': ' + objrow[key])
-    else:
-      logger.warn('unhandled HTTP status for added ' + key + ': ' + objpath + ', ' + headers['status'])
-      
-    # Wait time: if the object id is returned, then fluidinfo is aware of the object
-    #   if no object id is returned, then fluidinfo is not aware yet, and therefore
-    #   wait for a little while before issuing a query based on the tag
-    loop = True
-    maxTries = 20
-    sleepSeconds = 2
-    i = 0
-    while(loop == True):
-      ids = findObject(key,  objrow[key])
-      logger.info('checking for object: ' + objrow[key])
-
-      if(ids == None):
-        logger.info('sleeping: ' + str(sleepSeconds) + ' seconds (' + str(sleepSeconds * (i+1)) + ' sec total)' )
-        sleep(sleepSeconds)
+    
+    # 2. Update the primary key value, doi for articles, etc.
+    #    if the object is brand new
+    if((len(objrow['obj']) == 0) and (ids == None)):
+      headers, content = fluidinfo.put(objpath, objrow[key])
+      if(int(headers['status']) == 204):
+        logger.info('added ' + key + ': ' + objrow[key])
       else:
-        logger.info('object found: ' + objrow[key])
-        loop = False
+        logger.warn('unhandled HTTP status for added ' + key + ': ' + objpath + ', ' + headers['status'])
         
-      i = i+1
-      if(i >= maxTries):
-        loop = False
+      # Wait time: if the object id is returned, then fluidinfo is aware of the object
+      #   if no object id is returned, then fluidinfo is not aware yet, and therefore
+      #   wait for a little while before issuing a query based on the tag
+      loop = True
+      maxTries = 20
+      sleepSeconds = 2
+      i = 0
+      while(loop == True):
+        ids = findObject(key,  objrow[key])
+        logger.info('checking for object: ' + objrow[key])
+  
+        if(ids == None):
+          logger.info('sleeping: ' + str(sleepSeconds) + ' seconds (' + str(sleepSeconds * (i+1)) + ' sec total)' )
+          sleep(sleepSeconds)
+        else:
+          logger.info('object found: ' + objrow[key])
+          loop = False
+          
+        i = i+1
+        if(i >= maxTries):
+          loop = False
 
     # 3. Assuming success at this point, issue the single loader query
     headers, content = fluidinfo.put('/values', body=objrow['query'])

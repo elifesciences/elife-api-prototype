@@ -25,21 +25,9 @@ tags = [
   {'tag': 'article/article_country',		'desc': ''},
   {'tag': 'article/subject_area',		'desc': ''},
   {'tag': 'article/research_organism',		'desc': ''},
+	
   {'tag': 'article/authors',		'desc': ''},
-  {'tag': 'article/authors_id',		'desc': ''},
-  {'tag': 'article/authors_surname',		'desc': ''},
-  {'tag': 'article/authors_given_names',		'desc': ''},
-  {'tag': 'article/authors_department',		'desc': ''},
-  {'tag': 'article/authors_institution',		'desc': ''},
-  {'tag': 'article/authors_city',		'desc': ''},
-  {'tag': 'article/authors_country',		'desc': ''},
-  {'tag': 'article/authors_corresponding',		'desc': ''},
-  {'tag': 'article/authors_corresponding_surname',		'desc': ''},
-  {'tag': 'article/authors_corresponding_given_names',		'desc': ''},
-  {'tag': 'article/authors_corresponding_department',		'desc': ''},
-  {'tag': 'article/authors_corresponding_institution',		'desc': ''},
-  {'tag': 'article/authors_corresponding_city',		'desc': ''},
-  {'tag': 'article/authors_corresponding_country',		'desc': ''},
+
   {'tag': 'article/correspondence',		'desc': ''},
   {'tag': 'article/author_notes',		'desc': ''},
   {'tag': 'article/keywords',		'desc': ''},
@@ -70,28 +58,30 @@ tags = [
   {'tag': 'article/license_url',		'desc': ''},
   {'tag': 'article/ack',		'desc': ''},
   {'tag': 'article/conflict',		'desc': ''},
+	
   {'tag': 'article/refs',		'desc': ''},
-  {'tag': 'article/refs_publication_type',		'desc': ''},
-  {'tag': 'article/refs_article_title',		'desc': ''},
-  {'tag': 'article/refs_authors',		'desc': ''},
-  {'tag': 'article/refs_year',		'desc': ''},
-  {'tag': 'article/refs_source',		'desc': ''},
-  {'tag': 'article/refs_volume',		'desc': ''},
-  {'tag': 'article/refs_fpage',		'desc': ''},
-  {'tag': 'article/refs_lpage',		'desc': ''},
-  {'tag': 'article/refs_doi',		'desc': ''},
-  {'tag': 'article/refs_pmid',		'desc': ''},
-  {'tag': 'article/refs_collab',		'desc': ''},
-  {'tag': 'article/refs_publisher_loc',		'desc': ''},
-  {'tag': 'article/refs_publisher_name',		'desc': ''},
+	
   {'tag': 'article/xml',		'desc': ''},
   
-  {'tag': 'person/surname',		'desc': ''},
+  {'tag': 'person/id',		'desc': ''},
   
+  {'tag': 'author/person_id',		'desc': ''},
+  {'tag': 'author/article_doi',		'desc': ''},
+  {'tag': 'author/surname',		'desc': ''},
+  {'tag': 'author/given_names',		'desc': ''},
+  {'tag': 'author/department',		'desc': ''},
+  {'tag': 'author/institution',		'desc': ''},
+  {'tag': 'author/city',		'desc': ''},
+  {'tag': 'author/country',		'desc': ''},
+  {'tag': 'author/corresponding',		'desc': ''},
+  {'tag': 'author/position',		'desc': ''},
+	
   {'tag': 'ref/ref',		'desc': ''},
+  {'tag': 'ref/article_doi',		'desc': ''},
   {'tag': 'ref/article_title',		'desc': ''},
   {'tag': 'ref/publication_type',		'desc': ''},
   {'tag': 'ref/doi',		'desc': ''},
+  {'tag': 'ref/doi_url',		'desc': ''},
   {'tag': 'ref/pmid',		'desc': ''},
   {'tag': 'ref/authors',		'desc': ''},
   {'tag': 'ref/year',		'desc': ''},
@@ -102,6 +92,7 @@ tags = [
   {'tag': 'ref/collab',		'desc': ''},
   {'tag': 'ref/publisher_loc',		'desc': ''},
   {'tag': 'ref/publisher_name',		'desc': ''},
+  {'tag': 'ref/position',		'desc': ''},
 
   {'tag': 'alm_source/source',		'desc': ''},
   {'tag': 'alm_source/url',		'desc': ''},
@@ -122,9 +113,11 @@ tags = [
   {'tag': 'alm/temp_key',		'desc': ''},
 	
   {'tag': 'component/doi',		'desc': ''},
+  {'tag': 'component/doi_url',		'desc': ''},
   {'tag': 'component/type',		'desc': ''},
   {'tag': 'component/content',		'desc': ''},
   {'tag': 'component/article_doi',		'desc': ''},
+	
 ]
 
 objects = [
@@ -149,20 +142,6 @@ objects = [
              settings.namespace + '/' + 'article/subject_area': {'value': 'Microbiology and infectious disease'},
              settings.namespace + '/' + 'article/research_organism': {'value': 'None'},
              settings.namespace + '/' + 'article/authors': {'value': ['James Whitehorn','Rosmari Rodriguez Roche','Maria G. Guzman','Eric Martinez','Wilmar Villamil Gomez','Leonard Nainggolan','Ida Safitri Laksono','Ajay Mishra','Lucy Lum','Abul Faiz','Amadou Sall','Joshua Dawurung','Alvaro Borges','Yee-Sin Leo','Lucille Blumberg','Daniel G. Bausch','Axel Kroeger','Olaf Horstick','Guy Thwaites','Heiman Wertheim','Mattias Larsson','Tran Tinh Hien','Rosanna Peeling','Bridget Wills','Cameron Simmons','Jeremy Farrar']},
-             settings.namespace + '/' + 'article/authors_id': {'value': ['','','','','','','','','','','','','','','','','','','','','','','','','','']},
-             settings.namespace + '/' + 'article/authors_surname': {'value': ['Whitehorn','Roche','Guzman','Martinez','Villamil Gomez','Nainggolan','Laksono','Mishra','Lum','Faiz','Sall','Dawurung','Borges','Leo','Blumberg','Bausch','Kroeger','Horstick','Thwaites','Wertheim','Larsson','Hien','Peeling','Wills','Simmons','Farrar']},
-             settings.namespace + '/' + 'article/authors_given_names': {'value': ['James','Rosmari Rodriguez','Maria G.','Eric','Wilmar','Leonard','Ida Safitri','Ajay','Lucy','Abul','Amadou','Joshua','Alvaro','Yee-Sin','Lucille','Daniel G.','Axel','Olaf','Guy','Heiman','Mattias','Tran Tinh','Rosanna','Bridget','Cameron','Jeremy']},
-             settings.namespace + '/' + 'article/authors_department': {'value': ['Department of Clinical Research; Oxford University Clinical Research Unit', '', '', '', '', '', 'Paediatric Department', '', 'Department of Paediatrics', '', '', '', 'Copenhagen HIV Programme; ', 'Department of Infectious Diseases', '', '', 'Special Programme for Research and Training in Tropical Diseases', '', 'Department of Infectious Disease/Centre for Clinical Infection and Diagnostics Research', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Department of Clinical Research', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit', 'Oxford University Clinical Research Unit']},
-             settings.namespace + '/' + 'article/authors_institution': {'value': ['London School of Hygiene and Tropical Medicine; Hospital for Tropical Diseases', 'Instituto de Medicina Tropical Pedro Kouri', 'Instituto de Medicina Tropical Pedro Kouri', 'Instituto de Medicina Tropical Pedro Kouri', 'Hospital Universitario de Sincelejo', 'University of Indonesia', 'Gadjah Mada University', 'Sunderlal Memorial Hospital', 'University of Malaya', 'Sir Sallimullah Medical College', 'Institute Pasteur', 'University of Maiduguri Teaching Hospital', 'University of Copenhagen; University Hospital, Federal University of Minas Gerais', 'Tan Tock Seng Hospital', 'National Institute for Communicable Diseases', 'Tulane School of Public Health and Tropical Medicine', 'World Health Organization', 'Institute of Public Health, University of Heidelberg', 'King\'s College London', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'London School of Hygiene and Tropical Medicine', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases', 'Hospital for Tropical Diseases']},
-             settings.namespace + '/' + 'article/authors_city': {'value': ['London; Ho Chi Minh City', 'Havana', 'Havana', 'Havana', 'Sincelejo', 'Jakarta', 'Yogyakarta', 'Delhi', 'Kuala Lumpur', 'Dhaka', 'Dakar', 'Borno State', 'Copenhagen; Belo Horizonte', 'Singapore', 'Johannesburg', 'New Orleans, Louisiana', 'Geneva', 'Heidelberg', 'London', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Ho Chi Minh City', 'London', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Ho Chi Minh City']},
-             settings.namespace + '/' + 'article/authors_country': {'value': ['United Kingdom; Vietnam', 'Cuba', 'Cuba', 'Cuba', 'Colombia', 'Indonesia', 'Indonesia', 'India', 'Malaysia', 'Bangladesh', 'Senegal', 'Nigeria', 'Denmark; Brazil', 'Singapore', 'South Africa', 'United States of America', 'Switzerland', 'Germany', 'United Kingdom', 'Vietnam', 'Vietnam', 'Vietnam', 'United Kingdom', 'Vietnam', 'Vietnam', 'Vietnam']},
-             settings.namespace + '/' + 'article/authors_corresponding': {'value': 'James Whitehorn'},
-             settings.namespace + '/' + 'article/authors_corresponding_surname': {'value': 'Whitehorn'},
-             settings.namespace + '/' + 'article/authors_corresponding_given_names': {'value': 'James'},
-             settings.namespace + '/' + 'article/authors_corresponding_department': {'value': 'Department of Clinical Research; Oxford University Clinical Research Unit'},
-             settings.namespace + '/' + 'article/authors_corresponding_institution': {'value': 'London School of Hygiene and Tropical Medicine;  Hospital for Tropical Diseases'},
-             settings.namespace + '/' + 'article/authors_corresponding_city': {'value': 'London; Ho Chi Minh City'},
-             settings.namespace + '/' + 'article/authors_corresponding_country': {'value': 'United Kingdom; Vietnam'},
              settings.namespace + '/' + 'article/correspondence': {'value': '<label>&#x002A;</label>For correspondence: <email>james.whitehorn@lshtm.ac.uk</email> (JW)'},
              settings.namespace + '/' + 'article/author_notes': {'value': """<label>Author Contributions</label>
 		<p>Conception and design: JW, BW, JF, TTH</p>
@@ -202,20 +181,7 @@ objects = [
              settings.namespace + '/' + 'article/conflict': {'value': """<label>Competing interests</label>
 	<p>The authors have declared that no competing interests exist.</p>"""},
              settings.namespace + '/' + 'article/refs': {'value': ['Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al. (2010) Dengue: a continuing global threat. Nat Rev Microbiol 8: S7&#x2013;S16.', 'Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al. (2008) Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults. J Clin Virol 42: 34&#x2013;39', 'La Russa VF, Innis BL (1995) Mechanisms of dengue virus-induced bone marrow suppression. Baillieres Clin Haematol 8: 249&#x2013;270', 'Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al. (2001) Immunopathogenesis of dengue virus infection. J Biomed Sci 8: 377&#x2013;388', 'Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al. (2012) Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections. J Infect Dis 205: 1321&#x2013;1329', 'Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al. (2001) Mechanisms of hemorrhage in dengue without circulatory collapse. Am J Trop Med Hyg 65: 840&#x2013;847', 'Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al. (2009) A re-evaluation of the mechanisms leading to dengue hemorrhagic fever. Ann N Y Acad Sci 1171: E24&#x2013;35', 'WHO (2009) Dengue: guidelines for diagnosis, treatment, prevention and control - New edition. Geneva: World Health Organisation.', 'WHO (2011) Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition.. In: Asia ROfS-E, editor. Delhi.', 'India Go (2008) Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome. In: Programme DoNVBDC, editor. Delhi.', 'Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al. (2011) Guidelines for the management of patients with severe forms of dengue. Rev Bras Ter Intensiva 23: 125&#x2013;133', 'Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK (2003) Preventive transfusion in Dengue shock syndrome-is it necessary? J Pediatr 143: 682&#x2013;684', 'Lye DC, Lee VJ, Sun Y, Leo YS (2009) Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection. Clin Infect Dis 48: 1262&#x2013;1265', 'Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS (2011) When less is more: can we abandon prophylactic platelet transfusion in Dengue fever? Ann Acad Med Singapore 40: 539&#x2013;537', 'Sharma A, Charles K, Chadee D, Teelucksingh S (2012) Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion. Am J Trop Med Hyg 86: 531&#x2013;535']},
-             settings.namespace + '/' + 'article/refs_publication_type': {'value': ['journal', 'journal', 'journal', 'journal', 'journal', 'journal', 'journal', 'book', 'book', 'other', 'journal', 'journal', 'journal', 'journal', 'journal']},
-             settings.namespace + '/' + 'article/refs_article_title': {'value': ['Dengue: a continuing global threat', 'Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults', 'Mechanisms of dengue virus-induced bone marrow suppression', 'Immunopathogenesis of dengue virus infection', 'Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections', 'Mechanisms of hemorrhage in dengue without circulatory collapse', 'A re-evaluation of the mechanisms leading to dengue hemorrhagic fever', 'Dengue: guidelines for diagnosis, treatment, prevention and control - New edition', 'Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition', 'Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome', 'Guidelines for the management of patients with severe forms of dengue', 'Preventive transfusion in Dengue shock syndrome-is it necessary?', 'Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection', 'When less is more: can we abandon prophylactic platelet transfusion in Dengue fever?', 'Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion']},
-             settings.namespace + '/' + 'article/refs_authors': {'value': ['Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al.', 'Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al.', 'La Russa VF, Innis BL', 'Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al.', 'Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al.', 'Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al.', 'Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al.', '', '', 'India Go', 'Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al.', 'Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK', 'Lye DC, Lee VJ, Sun Y, Leo YS', 'Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS', 'Sharma A, Charles K, Chadee D, Teelucksingh S']},
-             settings.namespace + '/' + 'article/refs_year': {'value': ['2010', '2008', '1995', '2001', '2012', '2001', '2009', '2009', '2011', '2008', '2011', '2003', '2009', '2011', '2012']},
-             settings.namespace + '/' + 'article/refs_source': {'value': ['Nat Rev Microbiol', 'J Clin Virol', 'Baillieres Clin Haematol', 'J Biomed Sci', 'J Infect Dis', 'Am J Trop Med Hyg', 'Ann N Y Acad Sci', '', '', '', 'Rev Bras Ter Intensiva', 'J Pediatr', 'Clin Infect Dis', 'Ann Acad Med Singapore', 'Am J Trop Med Hyg']},
-             settings.namespace + '/' + 'article/refs_volume': {'value': ['8', '42', '8', '8', '205', '65', '1171', '', '', '', '23', '143', '48', '40', '86']},
-             settings.namespace + '/' + 'article/refs_fpage': {'value': ['S7', '34', '249', '377', '1321', '840', 'E24', '', '', '', '125', '682', '1262', '539', '531']},
-             settings.namespace + '/' + 'article/refs_lpage': {'value': ['S16', '39', '270', '388', '1329', '847', '35', '', '', '', '133', '684', '1265', '537', '535']},
-             settings.namespace + '/' + 'article/refs_doi': {'value': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']},
-             settings.namespace + '/' + 'article/refs_pmid': {'value': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']},
-             settings.namespace + '/' + 'article/refs_collab': {'value': ['', '', '', '', '', '', '', 'WHO', 'WHO', '', '', '', '', '', '']},
-             settings.namespace + '/' + 'article/refs_publisher_loc': {'value': ['', '', '', '', '', '', '', 'Geneva', '', '', '', '', '', '', '']},
-             settings.namespace + '/' + 'article/refs_publisher_name': {'value': ['', '', '', '', '', '', '', 'World Health Organisation', '', '', '', '', '', '', '']},
-             
+
              settings.namespace +  '/' + 'article/xml': {'value': """<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "journalpublishing3.dtd"><article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article"><front><journal-meta><journal-id journal-id-type="nlm-ta">eLife</journal-id><journal-id journal-id-type="hwp">eLife</journal-id><journal-id journal-id-type="publisher-id">eLife</journal-id><journal-title-group><journal-title>eLife</journal-title></journal-title-group><issn pub-type="epub">2050-084X</issn><publisher><publisher-name>eLife Sciences Publications, Ltd</publisher-name></publisher></journal-meta><article-meta>
 <article-id pub-id-type="doi">10.7554/eLife.000536</article-id>
 <article-categories>
@@ -234,13 +200,16 @@ objects = [
 
 		# 1
     {'obj': '2341349f-641a-4b61-9e7d-3e7b1b81bebd',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al. (2010) Dengue: a continuing global threat. Nat Rev Microbiol 8: S7&#x2013;S16.',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_1',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al. (2010) Dengue: a continuing global threat. Nat Rev Microbiol 8: S7&#x2013;S16."',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_1"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_1'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '1'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Guzman MG, Halstead SB, Artsob H, Buchy P, Farrar J, et al. (2010) Dengue: a continuing global threat. Nat Rev Microbiol 8: S7&#x2013;S16.'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Dengue: a continuing global threat'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -263,13 +232,16 @@ objects = [
 		
 		# 2
     {'obj': '5bbff29a-eae4-4add-b5ba-9d834da3eeb9',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al. (2008) Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults. J Clin Virol 42: 34&#x2013;39',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_2',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al. (2008) Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults. J Clin Virol 42: 34&#x2013;39"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_2"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_2'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '2'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Lee VJ, Lye DC, Sun Y, Fernandez G, Ong A, et al. (2008) Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults. J Clin Virol 42: 34&#x2013;39'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Predictive value of simple clinical and laboratory variables for dengue hemorrhagic fever in adults'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -292,13 +264,16 @@ objects = [
 		
 		# 3
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'La Russa VF, Innis BL (1995) Mechanisms of dengue virus-induced bone marrow suppression. Baillieres Clin Haematol 8: 249&#x2013;270',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_3',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "La Russa VF, Innis BL (1995) Mechanisms of dengue virus-induced bone marrow suppression. Baillieres Clin Haematol 8: 249&#x2013;270"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_3"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_3'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '3'},
              settings.namespace + '/' + 'ref/ref': {'value': 'La Russa VF, Innis BL (1995) Mechanisms of dengue virus-induced bone marrow suppression. Baillieres Clin Haematol 8: 249&#x2013;270'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Mechanisms of dengue virus-induced bone marrow suppression'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -320,13 +295,16 @@ objects = [
 		},		
 		# 4
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al. (2001) Immunopathogenesis of dengue virus infection. J Biomed Sci 8: 377&#x2013;388',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_4',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al. (2001) Immunopathogenesis of dengue virus infection. J Biomed Sci 8: 377&#x2013;388"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_4"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_4'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '4'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Lei HY, Yeh TM, Liu HS, Lin YS, Chen SH, et al. (2001) Immunopathogenesis of dengue virus infection. J Biomed Sci 8: 377&#x2013;388'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Immunopathogenesis of dengue virus infection'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -348,13 +326,16 @@ objects = [
 		},		
 		# 5
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al. (2012) Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections. J Infect Dis 205: 1321&#x2013;1329',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_5',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al. (2012) Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections. J Infect Dis 205: 1321&#x2013;1329"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_5"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_5'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '5'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Alonzo MT, Lacuesta TL, Dimaano EM, Kurosu T, Suarez LA, et al. (2012) Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections. J Infect Dis 205: 1321&#x2013;1329'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Platelet apoptosis and apoptotic platelet clearance by macrophages in secondary dengue virus infections'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -376,13 +357,16 @@ objects = [
 		},		
 		# 6
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al. (2001) Mechanisms of hemorrhage in dengue without circulatory collapse. Am J Trop Med Hyg 65: 840&#x2013;847',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_6',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al. (2001) Mechanisms of hemorrhage in dengue without circulatory collapse. Am J Trop Med Hyg 65: 840&#x2013;847"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_6"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_6'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '6'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Krishnamurti C, Kalayanarooj S, Cutting MA, Peat RA, Rothwell SW, et al. (2001) Mechanisms of hemorrhage in dengue without circulatory collapse. Am J Trop Med Hyg 65: 840&#x2013;847'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Mechanisms of hemorrhage in dengue without circulatory collapse'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -404,13 +388,16 @@ objects = [
 		},		
 		# 7
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al. (2009) A re-evaluation of the mechanisms leading to dengue hemorrhagic fever. Ann N Y Acad Sci 1171: E24&#x2013;35',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_7',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al. (2009) A re-evaluation of the mechanisms leading to dengue hemorrhagic fever. Ann N Y Acad Sci 1171: E24&#x2013;35"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_7"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_7'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '7'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Noisakran S, Chokephaibulkit K, Songprakhon P, Onlamoon N, Hsiao HM, et al. (2009) A re-evaluation of the mechanisms leading to dengue hemorrhagic fever. Ann N Y Acad Sci 1171: E24&#x2013;35'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'A re-evaluation of the mechanisms leading to dengue hemorrhagic fever'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -432,13 +419,16 @@ objects = [
 		},		
 		# 8
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'WHO (2009) Dengue: guidelines for diagnosis, treatment, prevention and control - New edition. Geneva: World Health Organisation.',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_8',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "WHO (2009) Dengue: guidelines for diagnosis, treatment, prevention and control - New edition. Geneva: World Health Organisation."',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_8"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_8'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '8'},
              settings.namespace + '/' + 'ref/ref': {'value': 'WHO (2009) Dengue: guidelines for diagnosis, treatment, prevention and control - New edition. Geneva: World Health Organisation.'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Dengue: guidelines for diagnosis, treatment, prevention and control - New edition'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'book'},
@@ -460,13 +450,16 @@ objects = [
 		},		
 		# 9
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'WHO (2011) Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition.. In: Asia ROfS-E, editor. Delhi.',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_9',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "WHO (2011) Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition.. In: Asia ROfS-E, editor. Delhi."',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_9"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_9'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '9'},
              settings.namespace + '/' + 'ref/ref': {'value': 'WHO (2011) Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition.. In: Asia ROfS-E, editor. Delhi.'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Comprehensive guidelines for the prevention and control of dengue and dengue haemorrhagic fever, revised and expanded edition'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'book'},
@@ -488,13 +481,16 @@ objects = [
 		},		
 		# 10
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'India Go (2008) Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome. In: Programme DoNVBDC, editor. Delhi.',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_10',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "India Go (2008) Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome. In: Programme DoNVBDC, editor. Delhi."',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_10"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_10'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '10'},
              settings.namespace + '/' + 'ref/ref': {'value': 'India Go (2008) Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome. In: Programme DoNVBDC, editor. Delhi.'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Guidelines for clinical management of dengue fever, dengue haemorrhagic fever and dengue shock syndrome'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'other'},
@@ -516,13 +512,16 @@ objects = [
 		},		
 		# 11
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al. (2011) Guidelines for the management of patients with severe forms of dengue. Rev Bras Ter Intensiva 23: 125&#x2013;133',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_11',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al. (2011) Guidelines for the management of patients with severe forms of dengue. Rev Bras Ter Intensiva 23: 125&#x2013;133"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_11"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_11'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '11'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Verdeal J, Filho RC, Vanzillotta C, Macedo G, Bozza F, et al. (2011) Guidelines for the management of patients with severe forms of dengue. Rev Bras Ter Intensiva 23: 125&#x2013;133'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Guidelines for the management of patients with severe forms of dengue'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -544,13 +543,16 @@ objects = [
 		},		
 		# 12
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK (2003) Preventive transfusion in Dengue shock syndrome-is it necessary? J Pediatr 143: 682&#x2013;684',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_12',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK (2003) Preventive transfusion in Dengue shock syndrome-is it necessary? J Pediatr 143: 682&#x2013;684"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_12"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_12'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '12'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Lum LC, Abdel-Latif Mel A, Goh AY, Chan PW, Lam SK (2003) Preventive transfusion in Dengue shock syndrome-is it necessary? J Pediatr 143: 682&#x2013;684'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Preventive transfusion in Dengue shock syndrome-is it necessary?'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -572,13 +574,16 @@ objects = [
 		},		
 		# 13
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Lye DC, Lee VJ, Sun Y, Leo YS (2009) Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection. Clin Infect Dis 48: 1262&#x2013;1265',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_13',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Lye DC, Lee VJ, Sun Y, Leo YS (2009) Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection. Clin Infect Dis 48: 1262&#x2013;1265"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_13"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_13'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '13'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Lye DC, Lee VJ, Sun Y, Leo YS (2009) Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection. Clin Infect Dis 48: 1262&#x2013;1265'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Lack of efficacy of prophylactic platelet transfusion for severe thrombocytopenia in adults with acute uncomplicated dengue infection'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -600,13 +605,16 @@ objects = [
 		},		
 		# 14
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS (2011) When less is more: can we abandon prophylactic platelet transfusion in Dengue fever? Ann Acad Med Singapore 40: 539&#x2013;537',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_14',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS (2011) When less is more: can we abandon prophylactic platelet transfusion in Dengue fever? Ann Acad Med Singapore 40: 539&#x2013;537"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_14"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_14'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '14'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Kurukularatne C, Dimatatac F, Teo DL, Lye DC, Leo YS (2011) When less is more: can we abandon prophylactic platelet transfusion in Dengue fever? Ann Acad Med Singapore 40: 539&#x2013;537'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'When less is more: can we abandon prophylactic platelet transfusion in Dengue fever?'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -628,13 +636,16 @@ objects = [
 		},		
 		# 15
     {'obj': '',
-		 'key': 'ref/ref',
-		 'ref/ref': 'Sharma A, Charles K, Chadee D, Teelucksingh S (2012) Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion. Am J Trop Med Hyg 86: 531&#x2013;535',
+		 'key': 'ref/temp_key',
+		 'ref/temp_key': '10.7554/eLife.000536_15',
 		 'query':
       {'queries':
         [
-          [ settings.namespace + '/' + 'ref/ref = "Sharma A, Charles K, Chadee D, Teelucksingh S (2012) Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion. Am J Trop Med Hyg 86: 531&#x2013;535"',
+          [ settings.namespace + '/' + 'ref/temp_key = "10.7554/eLife.000536_15"',
             {
+             settings.namespace + '/' + 'ref/temp_key': {'value': '10.7554/eLife.000536_15'},
+             settings.namespace + '/' + 'ref/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'ref/position': {'value': '15'},
              settings.namespace + '/' + 'ref/ref': {'value': 'Sharma A, Charles K, Chadee D, Teelucksingh S (2012) Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion. Am J Trop Med Hyg 86: 531&#x2013;535'},
              settings.namespace + '/' + 'ref/article_title': {'value': 'Dengue hemorrhagic Fever in trinidad and tobago: a case for a conservative approach to platelet transfusion'},
              settings.namespace + '/' + 'ref/publication_type': {'value': 'journal'},
@@ -649,6 +660,682 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 1
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_1',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_1"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_1'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '1'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Whitehorn'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'James'},
+						 settings.namespace + '/' + 'author/department': {'value': ['Department of Clinical Research', 'Oxford University Clinical Research Unit']},
+						 settings.namespace + '/' + 'author/institution': {'value': ['London School of Hygiene and Tropical Medicine','Hospital for Tropical Diseases']},
+						 settings.namespace + '/' + 'author/city': {'value': ['London','Ho Chi Minh City']},
+						 settings.namespace + '/' + 'author/country': {'value': ['United Kingdom','Vietnam']},
+						 settings.namespace + '/' + 'author/corresponding': {'value': True},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 2
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_2',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_2"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_2'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '2'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Roche'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Rosmari Rodriguez'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Instituto de Medicina Tropical Pedro Kouri'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Havana'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Cuba'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 3
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_3',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_3"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_3'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '3'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Guzman'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Maria G.'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Instituto de Medicina Tropical Pedro Kouri'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Havana'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Cuba'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 4
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_4',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_4"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_4'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '4'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Martinez'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Eric'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Instituto de Medicina Tropical Pedro Kouri'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Havana'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Cuba'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 5
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_5',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_5"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_5'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '5'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Villamil Gomez'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Wilmar'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital Universitario de Sincelejo'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Sincelejo'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Colombia'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 6
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_6',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_6"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_6'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '6'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Nainggolan'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Leonard'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'University of Indonesia'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Jakarta'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Indonesia'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 7
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_7',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_7"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_7'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '7'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Laksono'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Ida Safitri'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Paediatric Department'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Gadjah Mada University'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Yogyakarta'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Indonesia'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 8
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_8',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_8"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_8'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '8'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Mishra'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Ajay'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Sunderlal Memorial Hospital'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Delhi'},
+						 settings.namespace + '/' + 'author/country': {'value': 'India'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 9
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_9',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_9"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_9'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '9'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Lum'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Lucy'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Department of Paediatrics'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'University of Malaya'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Kuala Lumpur'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Malaysia'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 10
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_10',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_10"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_10'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '10'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Faiz'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Abul'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Sir Sallimullah Medical College'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Dhaka'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Bangladesh'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 11
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_11',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_11"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_11'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '11'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Sall'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Amadou'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Institute Pasteur'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Dakar'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Senegal'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 12
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_12',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_12"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_12'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '12'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Dawurung'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Joshua'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'University of Maiduguri Teaching Hospital'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Borno State'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Nigeria'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 13
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_13',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_13"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_13'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '13'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Borges'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Alvaro'},
+						 settings.namespace + '/' + 'author/department': {'value': ['Copenhagen HIV Programme','']},
+						 settings.namespace + '/' + 'author/institution': {'value': ['University of Copenhagen','University Hospital, Federal University of Minas Gerais']},
+						 settings.namespace + '/' + 'author/city': {'value': ['Copenhagen','Belo Horizonte']},
+						 settings.namespace + '/' + 'author/country': {'value': ['Denmark','Brazil']},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 14
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_14',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_14"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_14'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '14'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Leo'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Yee-Sin'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Department of Infectious Diseases'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Tan Tock Seng Hospital'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Singapore'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Singapore'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 15
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_15',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_15"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_15'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '15'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Blumberg'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Lucille'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'National Institute for Communicable Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Johannesburg'},
+						 settings.namespace + '/' + 'author/country': {'value': 'South Africa'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 16
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_16',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_16"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_16'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '16'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Bausch'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Daniel G.'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Tulane School of Public Health and Tropical Medicine'},
+						 settings.namespace + '/' + 'author/city': {'value': 'New Orleans, Louisiana'},
+						 settings.namespace + '/' + 'author/country': {'value': 'United States of America'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 17
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_17',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_17"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_17'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '17'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Kroeger'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Axel'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Special Programme for Research and Training in Tropical Diseases'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'World Health Organization'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Geneva'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Switzerland'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 18
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_18',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_18"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_18'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '18'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Horstick'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Olaf'},
+						 #settings.namespace + '/' + 'author/department': {'value': '_____________'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Institute of Public Health, University of Heidelberg'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Heidelberg'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Germany'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 19
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_19',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_19"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_19'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '19'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Thwaites'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Guy'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Department of Infectious Disease/Centre for Clinical Infection and Diagnostics Research'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'King\'s College London'},
+						 settings.namespace + '/' + 'author/city': {'value': 'London'},
+						 settings.namespace + '/' + 'author/country': {'value': 'United Kingdom'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 20
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_20',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_20"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_20'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '20'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Wertheim'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Heiman'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Oxford University Clinical Research Unit'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital for Tropical Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 21
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_21',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_21"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_21'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '21'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Larsson'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Mattias'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Oxford University Clinical Research Unit'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital for Tropical Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 22
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_22',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_22"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_22'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '22'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Hien'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Tran Tinh'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Oxford University Clinical Research Unit'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital for Tropical Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 23
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_23',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_23"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_23'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '23'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Peeling'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Rosanna'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Department of Clinical Research'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'London School of Hygiene and Tropical Medicine'},
+						 settings.namespace + '/' + 'author/city': {'value': 'London'},
+						 settings.namespace + '/' + 'author/country': {'value': 'United Kingdom'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 24
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_24',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_24"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_24'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '24'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Wills'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Bridget'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Oxford University Clinical Research Unit'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital for Tropical Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 25
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_25',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_25"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_25'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '25'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Simmons'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Cameron'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Oxford University Clinical Research Unit'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital for Tropical Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Author 26
+    {'obj': '',
+		 'key': 'author/temp_key',
+		 'author/temp_key': '10.7554/eLife.000536_26',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'author/temp_key = "10.7554/eLife.000536_26"',
+            {
+             settings.namespace + '/' + 'author/temp_key': {'value': '10.7554/eLife.000536_26'},
+             settings.namespace + '/' + 'author/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'author/position': {'value': '26'},
+             settings.namespace + '/' + 'author/person_id': {'value': ''},
+						 settings.namespace + '/' + 'author/surname': {'value': 'Farrar'},
+						 settings.namespace + '/' + 'author/given_names': {'value': 'Jeremy'},
+						 settings.namespace + '/' + 'author/department': {'value': 'Oxford University Clinical Research Unit'},
+						 settings.namespace + '/' + 'author/institution': {'value': 'Hospital for Tropical Diseases'},
+						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
+						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
+						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
 						}
 					]
 				]
