@@ -60,8 +60,10 @@ class article():
 		self.ack = None
 		self.conflict = None
 
-		# authors TO DO
+		self.authors = None
+
 		# refs TO DO
+		# components TO DO
 
 	def set_file_location(self, path, doc):
 		document = doc.lstrip('"').rstrip('"')
@@ -123,6 +125,8 @@ class article():
 		self.license_url = self.pm.license_url(self.filecontent)
 		self.ack = self.pm.ack(self.filecontent)
 		self.conflict = self.pm.conflict(self.filecontent)
+		
+		self.authors = self.pm.authors(self.filecontent)
 		
 	def data(self):
 		"""

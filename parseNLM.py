@@ -159,8 +159,104 @@ def authors(soup):
 	"""Find and return all the authors"""
 	tags = extract_nodes(soup, "contrib", attr = "contrib-type", value = "author")
 	authors = []
+	position = 1
 	for tag in tags:
-		authors.append(tag)
+		author = {}
+		
+		# Person id
+		try:
+			id = tag["id"]
+			author['id'] = id
+		except(KeyError):
+			pass
+
+		# Equal contrib
+		try:
+			equal_contrib = tag["equal-contrib"]
+			if(equal_contrib == 'yes'):
+				author['equal_contrib'] = True
+		except(KeyError):
+			pass
+		
+		# Correspondence
+		try:
+			corresponding = tag["corresp"]
+			if(corresponding == 'yes'):
+				author['corresponding'] = True
+		except(KeyError):
+			pass
+		
+		# Surname
+		surname = extract_node_text(tag, "surname")
+		if(surname != None):
+			author['surname'] = surname
+
+		# Given names
+		given_names = extract_node_text(tag, "given_names")
+		if(given_names != None):
+			author['given_names'] = given_names
+		
+		# Find and parse affiliations
+		affs = extract_nodes(tag, "xref", attr = "ref-type", value = "aff")
+		if(len(affs) > 0):
+			# One or more affiliations
+			if(len(affs) > 1):
+				# Prepare for multiple affiliations if multiples found
+				author['country'] = []
+				author['institution'] = []
+				author['department'] = []
+				author['city'] = []
+				
+			for aff in affs:
+				# Find the matching affiliation detail
+				rid = aff['rid']
+
+				aff_node = extract_nodes(soup, "aff", attr = "id", value = rid)
+				country = extract_node_text(aff_node[0], "country")
+				institution = extract_node_text(aff_node[0], "institution")
+				department = extract_node_text(aff_node[0], "named-content", attr = "content-type", value = "department")
+				city = extract_node_text(aff_node[0], "named-content", attr = "content-type", value = "city")
+				
+				# Convert None to empty string if there is more than one affiliation
+				if((country == None) and (len(affs) > 1)):
+					country = ''
+				if((institution == None) and (len(affs) > 1)):
+					institution = ''
+				if((department == None) and (len(affs) > 1)):
+					department = ''
+				if((city == None) and (len(affs) > 1)):
+					city = ''
+					
+				# Append values
+				try:
+					# Multiple values
+					author['country'].append(country)
+				except(KeyError):
+					author['country'] = country
+				try:
+					# Multiple values
+					author['institution'].append(institution)
+				except(KeyError):
+					author['institution'] = institution
+				try:
+					# Multiple values
+					author['department'].append(department)
+				except(KeyError):
+					author['department'] = department
+				try:
+					# Multiple values
+					author['city'].append(city)
+				except(KeyError):
+					author['city'] = city
+
+		# If not empty, add position value, append, then increment the position counter
+		if(len(author) > 0):
+			author['article_doi'] = doi(soup)
+			
+			author['position'] = position
+			authors.append(author)
+			position += 1
+		
 	return authors
 
 def references(soup):
@@ -216,7 +312,37 @@ def publisher(soup):
 
 @strippen
 def abstract(soup):
-	abstract = extract_node_text(soup, "abstract")
+	"""
+	Find the article abstract and format it
+	"""
+	
+	# Strip out the object-id so we only have the text
+	try:
+		abstract_soup = soup.find_all("abstract")
+		object_id = abstract_soup[0].find_all("object-id")
+		object_id[0].clear()
+	except(IndexError):
+		# No abstract found
+		return None
+	
+	abstract_node = abstract_soup[0]
+
+	# Allow the contents of certain markup tags, then
+	#  remove any tags and their contents not on the allowed list
+	allowed_tags = ["italic", "sup", "p"]
+
+	for allowed in allowed_tags:
+		tag = abstract_node.find_all(allowed)
+		for t in tag:
+			t.unwrap()
+	
+	# Done unwrapping allowed tags, now delete tags and enclosed
+	# content of unallowed tags
+	all = abstract_node.find_all()
+	for a in all:
+		a.clear()
+
+	abstract = abstract_node.text
 	return abstract
 
 @flatten

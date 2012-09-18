@@ -66,6 +66,7 @@ tags = [
   {'tag': 'person/id',		'desc': ''},
   
   {'tag': 'author/person_id',		'desc': ''},
+  {'tag': 'author/equal_contrib',		'desc': ''},
   {'tag': 'author/article_doi',		'desc': ''},
   {'tag': 'author/surname',		'desc': ''},
   {'tag': 'author/given_names',		'desc': ''},
