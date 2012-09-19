@@ -55,7 +55,8 @@ Feature: Create an article object and parse XML input
     | 10.1083/jcb.201106079 | pub_date_date  | September 19, 2011
 		| 10.7554/eLife.000536  | pub_date_date  | June 26, 2012
 		
-		
+    | 10.7554/eLife.00013   | authors[5]['surname'] | Fairclough
+    | 10.7554/eLife.00013   | refs[0]['year']       | 1992
 		
   Scenario Outline: Check an article object property list length after parsing XML
     Given I have an article object with the doi <doi>
@@ -81,3 +82,7 @@ Feature: Create an article object and parse XML input
     | 10.7554/eLife.00013   | authors           | 8
     | 10.1083/jcb.201106079 | authors           | 4
     | 10.7554/eLife.000536  | authors           | 26
+		
+    | 10.7554/eLife.00013   | refs              | 103
+    | 10.1083/jcb.201106079 | refs              | 57
+    | 10.7554/eLife.000536  | refs              | 15

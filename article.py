@@ -61,8 +61,8 @@ class article():
 		self.conflict = None
 
 		self.authors = None
-
-		# refs TO DO
+		self.refs = None
+		
 		# components TO DO
 
 	def set_file_location(self, path, doc):
@@ -127,6 +127,7 @@ class article():
 		self.conflict = self.pm.conflict(self.filecontent)
 		
 		self.authors = self.pm.authors(self.filecontent)
+		self.refs = self.pm.refs(self.filecontent)
 		
 	def data(self):
 		"""

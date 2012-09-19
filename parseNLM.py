@@ -260,28 +260,104 @@ def authors(soup):
 	return authors
 
 def references(soup):
-	"""Find and return all the references"""
-	references = extract_nodes(soup, "ref")
-	return references
-
-def get_references_by(soup, year = 0, source = ''):
-	"""Get references by attributes, boolean 'or' match"""
-	refs = []
-	if(int(year) > 0):
-		for ref in references(soup):
-			if int(extract_node_text(ref, "year")) == int(year):
-				refs.append(ref)
-	if(source != ''):
-		for ref in references(soup):
-			try:
-				if extract_node_text(ref, "source") == source:
-					refs.append(ref)
-			except(TypeError):
-			  # Possibly no tag found and returned None
-				pass
-	# Return with no duplicates
-	return list(set(refs))
+	"""Renamed to refs"""
+	return refs(soup)
 	
+def refs(soup):
+	"""Find and return all the references"""
+	tags = extract_nodes(soup, "ref")
+	refs = []
+	position = 1
+	for tag in tags:
+		ref = {}
+		
+		# ref - human readable full reference text
+		ref_text = tag.text
+		ref_text = strip_strings(ref_text)
+		# Remove excess space
+		ref_text = ' '.join(ref_text.split())
+		# Fix space dot
+		ref_text = ref_text.replace(" .", ".")
+		ref['ref'] = strip_strings(ref_text)
+		
+		# article_title
+		article_title = extract_node_text(tag, "article-title")
+		if(article_title != None):
+			ref['article_title'] = article_title
+			
+		# year
+		year = extract_node_text(tag, "year")
+		if(year != None):
+			ref['year'] = year
+			
+		# source
+		source = extract_node_text(tag, "source")
+		if(source != None):
+			ref['source'] = source
+			
+		# publication_type
+		mixed_citation = extract_nodes(tag, "mixed-citation")
+		try:
+			publication_type = mixed_citation[0]["publication-type"]
+			ref['publication_type'] = publication_type
+		except(KeyError, IndexError):
+			pass
+		
+		# authors
+		person_group = extract_nodes(tag, "person-group")
+		authors = []
+		try:
+			name = extract_nodes(person_group[0], "name")
+			for n in name:
+				surname = extract_node_text(n, "surname")
+				given_names = extract_node_text(n, "given-names")
+				full_name = strip_strings(surname + ' ' + given_names)
+				authors.append(full_name)
+			if(len(authors) > 0):
+				ref['authors'] = authors
+		except(KeyError, IndexError):
+			pass
+			
+		# volume
+		volume = extract_node_text(tag, "volume")
+		if(volume != None):
+			ref['volume'] = volume
+			
+		# fpage
+		fpage = extract_node_text(tag, "fpage")
+		if(fpage != None):
+			ref['fpage'] = fpage
+			
+		# lpage
+		lpage = extract_node_text(tag, "lpage")
+		if(lpage != None):
+			ref['lpage'] = lpage
+			
+		# collab
+		collab = extract_node_text(tag, "collab")
+		if(collab != None):
+			ref['collab'] = collab
+			
+		# publisher_loc
+		publisher_loc = extract_node_text(tag, "publisher-loc")
+		if(publisher_loc != None):
+			ref['publisher_loc'] = publisher_loc
+		
+		# publisher_name
+		publisher_name = extract_node_text(tag, "publisher-name")
+		if(publisher_name != None):
+			ref['publisher_name'] = publisher_name
+			
+		# If not empty, add position value, append, then increment the position counter
+		if(len(ref) > 0):
+			ref['article_doi'] = doi(soup)
+			
+			ref['position'] = position
+			refs.append(ref)
+			position += 1
+	
+	return refs
+
 def journal_id(soup):
 	"""Find and return the primary journal id"""
 	journal_id = extract_node_text(soup, "journal-ids", attr = "journal-id-type", value = "hwp")

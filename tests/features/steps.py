@@ -69,13 +69,28 @@ def then_i_get_the_total_number_of_references_as(step, number):
 
 @step('When I count references from the year (\d+)')
 def count_referneces_from_the_year(step, year):
-	world.references_count = len(pm.get_references_by(world.filecontent, year = year))
+	world.references_count = 0
+	references = pm.refs(world.filecontent)
+	for ref in references:
+		try:
+			if int(ref['year']) == int(year):
+				world.references_count += 1
+		except(KeyError):
+			continue
 
 @step('When I count the number of references from the journal (.*$)')
 def count_the_number_of_references_from_the_journal(step, journal):
 	if (journal == 'None'):
 	  journal = None
-	world.references_count = len(pm.get_references_by(world.filecontent, source = journal))
+	world.references_count = 0
+	references = pm.refs(world.filecontent)
+	for ref in references:
+		try:
+			if ref['source'] == journal:
+				world.references_count += 1
+		except(KeyError):
+			if journal == None:
+				world.references_count += 1
 
 def set_file_location(doc):
 	document = doc.lstrip('"').rstrip('"')
