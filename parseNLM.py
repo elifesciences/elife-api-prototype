@@ -192,7 +192,7 @@ def authors(soup):
 			author['surname'] = surname
 
 		# Given names
-		given_names = extract_node_text(tag, "given_names")
+		given_names = extract_node_text(tag, "given-names")
 		if(given_names != None):
 			author['given_names'] = given_names
 		
@@ -316,16 +316,27 @@ def abstract(soup):
 	Find the article abstract and format it
 	"""
 	
+	abstract_soup = []
 	# Strip out the object-id so we only have the text
 	try:
 		abstract_soup = soup.find_all("abstract")
-		object_id = abstract_soup[0].find_all("object-id")
-		object_id[0].clear()
+		for tag in abstract_soup:
+			object_id = tag.find_all("object-id")
+			object_id[0].clear()
 	except(IndexError):
 		# No abstract found
-		return None
+		pass
 	
-	abstract_node = abstract_soup[0]
+	# Find the desired abstract node, <abstract>
+	for tag in abstract_soup:
+		try:
+			if(tag["abstract-type"] != None):
+				# A tag attribute found, skip it
+				pass
+		except KeyError:
+				# No attribute, use this abstract
+				abstract_node = tag
+				break
 
 	# Allow the contents of certain markup tags, then
 	#  remove any tags and their contents not on the allowed list
@@ -424,11 +435,14 @@ def subject_area(soup):
 		for tag in subj_group:
 			tags = extract_nodes(tag, "subject")
 			for t in tags:
-				subject_area.append(tag.text)
+				subject_area.append(t.text)
 				
 	except(IndexError):
 		# Tag not found
 		return None
+	
+	# Remove duplicates
+	subject_area = list(set(subject_area))
 	return subject_area
 
 @flatten

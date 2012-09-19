@@ -146,6 +146,7 @@ def main():
 	#document = "elife_pmc_preview_version_17.xml"
 	#document = "NLM3-sample-for-elife.1.xml"
 	document = "elife-kitchen-sink.xml"
+	#document = "elife-sample-jun2012.xml"
 	a.set_file_location(settings.test_xml_path, document)
 	a.parse_document()
 	# Debug data

@@ -68,11 +68,16 @@ Feature: Create an article object and parse XML input
 		
     | 10.7554/eLife.00013   | author_notes      | 2
     | 10.1083/jcb.201106079 | author_notes      | 1
+    | 10.7554/eLife.000536  | author_notes      | 1
 		
     | 10.7554/eLife.00013   | keywords          | 4
     | 10.1083/jcb.201106079 | keywords          | 0
+    | 10.7554/eLife.000536  | keywords          | 3
 		
     | 10.7554/eLife.00013   | subject_area      | 3
+    | 10.1083/jcb.201106079 | subject_area      | 2
+    | 10.7554/eLife.000536  | subject_area      | 1
 		
-		
-		
+    | 10.7554/eLife.00013   | authors           | 8
+    | 10.1083/jcb.201106079 | authors           | 4
+    | 10.7554/eLife.000536  | authors           | 26
