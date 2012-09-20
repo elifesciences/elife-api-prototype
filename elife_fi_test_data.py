@@ -7,6 +7,7 @@ namespaces = [
   {'namespace': 'alm'},
   {'namespace': 'alm_source'},
   {'namespace': 'component'},
+  {'namespace': 'author'},
 ]
 
 tags = [
@@ -76,6 +77,7 @@ tags = [
   {'tag': 'author/country',		'desc': ''},
   {'tag': 'author/corresponding',		'desc': ''},
   {'tag': 'author/position',		'desc': ''},
+  {'tag': 'author/temp_key',		'desc': ''},
 	
   {'tag': 'ref/ref',		'desc': ''},
   {'tag': 'ref/article_doi',		'desc': ''},
@@ -94,6 +96,7 @@ tags = [
   {'tag': 'ref/publisher_loc',		'desc': ''},
   {'tag': 'ref/publisher_name',		'desc': ''},
   {'tag': 'ref/position',		'desc': ''},
+  {'tag': 'ref/etal',		'desc': ''},
 
   {'tag': 'alm_source/source',		'desc': ''},
   {'tag': 'alm_source/url',		'desc': ''},
@@ -225,6 +228,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -257,6 +261,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -289,6 +294,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -320,6 +326,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -351,6 +358,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -382,6 +390,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -413,6 +422,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -444,6 +454,7 @@ objects = [
              settings.namespace + '/' + 'ref/collab': {'value': 'WHO'},
              settings.namespace + '/' + 'ref/publisher_loc': {'value': 'Geneva'},
              settings.namespace + '/' + 'ref/publisher_name': {'value': 'World Health Organisation'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -475,6 +486,7 @@ objects = [
              settings.namespace + '/' + 'ref/collab': {'value': 'WHO'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -506,6 +518,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -537,6 +550,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             settings.namespace + '/' + 'ref/etal': {'value': True},
 						}
 					]
 				]
@@ -568,6 +582,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -599,6 +614,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -630,6 +646,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -661,6 +678,7 @@ objects = [
              #settings.namespace + '/' + 'ref/collab': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_loc': {'value': '________________________'},
              #settings.namespace + '/' + 'ref/publisher_name': {'value': '________________________'},
+             #settings.namespace + '/' + 'ref/etal': {'value': '________________________'},
 						}
 					]
 				]
@@ -1337,6 +1355,26 @@ objects = [
 						 settings.namespace + '/' + 'author/city': {'value': 'Ho Chi Minh City'},
 						 settings.namespace + '/' + 'author/country': {'value': 'Vietnam'},
 						 #settings.namespace + '/' + 'author/corresponding': {'value': ''},
+						}
+					]
+				]
+			}
+		},
+		
+		# Component 1
+    {'obj': '',
+		 'key': 'component/doi',
+		 'component/doi': '10.7554/eLife.000536.t001',
+		 'query':
+      {'queries':
+        [
+          [ settings.namespace + '/' + 'component/doi = "10.7554/eLife.000536.t001"',
+            {
+             settings.namespace + '/' + 'component/doi': {'value': '10.7554/eLife.000536.t001'},
+             settings.namespace + '/' + 'component/doi_url': {'value': 'http://dx.doi.org/10.7554/eLife.000536.t001'},
+             settings.namespace + '/' + 'component/type': {'value': 'table-wrap'},
+             settings.namespace + '/' + 'component/article_doi': {'value': '10.7554/eLife.000536'},
+             settings.namespace + '/' + 'component/content': {'value': "Table 1Proportion of respondents choosing to transfuse platelets stratified by geographic region (n, (%)); BP = blood pressure; HR = heart rate; HCT = haematocrit.Clinical caseAsia (n = 134)Africa (n = 39)S. America & Caribbean (n = 130)UK (n = 3)Total (n = 306)Case 1 18-year-old female; platelets 23\u00d7109/L; no haemorrhage; BP 120/80; HR 105; HCT 39%12 (9)38 (97.4)8 (6.2)0 (0)58 (19)Case 2 28-year-old male; platelets 29\u00d7109/L; no haemorrhage; past history of perforated gastric ulcer; BP 100/75; HR 92; HCT 42%320 (14.9)39 (100)13 (10)0 (0)72 (23.5)Case 3 29-year-old female; rapid fall in platelets to 22\u00d7109/L; no haemorrhage; haemodynamically stable12 (9)30 (76.9)6 (4.6)0 (0)48 (15.7)Case 4 30-year-old male; platelets 3\u00d7109/L; no haemorrhage; haemodynamically stable57 (42.5)37 (94.9)23 (17.7)3 (100)120 (39.2)Case 5 19-year-old male; platelets 18\u00d7109/L; dengue hepatitis; no haemorrhage; BP 90/60; HR 120; HCT 47%11 (8.2)36 (92.3)7 (5.4)2 (66.7)56 (18.3)Case 6 20-year-old female; platelets 17\u00d7109/L; dengue encephalitis; no haemorrhage; BP 100/70; HR 100; HCT 40%25 (18.7)39 (100)19 (14.6)1 (33.3)84 (27.5)Case 7 24-year-old male; platelets 31\u00d7109/L; hepatic failure secondary to dengue; no haemorrhage; BP 125/70; HR 110; HCT 42%5 (3.7)39 (100)9 (6.9)0 (0)53 (17.3)Case 8 23-year-old female; platelets 8\u00d7109/L; shock, epistaxis and vaginal bleeding; BP 75/50; HR 110; HCT 42%86 (64.2)39 (100)43 (33.1)3 (100)171 (55.9)Case 9 23-year-old male; platelets 33\u00d7109/L; shock and mucosal bleeding; BP 70/50; HR 120; HCT 46%57 (42.5)39 (100)26 (20)1 (33.3)123 (40.2)Prophylactic platelet transfusion threshold:\u2003\u2003\u2003\u2003<50\u00d7109/L8 (6)23 (59)0 (0)0 (0)31 (10.1)\u2003\u2003\u2003\u2003<40\u00d7109/L1 (0.7)7 (17.9)0 (0)0 (0)8 (2.6)\u2003\u2003\u2003\u2003<30\u00d7109/L1 (0.7)7 (17.9)2 (1.5)0 (0)10 (3.3)\u2003\u2003\u2003\u2003<20\u00d7109/L12 (9)1 (2.6)2 (1.5)2 (66.7)17 (5.6)\u2003\u2003\u2003\u2003<10\u00d7109/L33 (24.6)0 (0)12 (9.2)1 (33.3)46 (15)\u2003\u2003\u2003\u2003Not in absence of bleeding75 (56)1 (2.6)39 (30)0 (0)190 (62.1)"},
 						}
 					]
 				]

@@ -62,8 +62,7 @@ class article():
 
 		self.authors = None
 		self.refs = None
-		
-		# components TO DO
+		self.components = None
 
 	def set_file_location(self, path, doc):
 		document = doc.lstrip('"').rstrip('"')
@@ -128,6 +127,7 @@ class article():
 		
 		self.authors = self.pm.authors(self.filecontent)
 		self.refs = self.pm.refs(self.filecontent)
+		self.components = self.pm.components(self.filecontent)
 		
 	def data(self):
 		"""

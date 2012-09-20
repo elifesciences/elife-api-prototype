@@ -86,3 +86,6 @@ Feature: Create an article object and parse XML input
     | 10.7554/eLife.00013   | refs              | 103
     | 10.1083/jcb.201106079 | refs              | 57
     | 10.7554/eLife.000536  | refs              | 15
+		
+    | 10.7554/eLife.00013   | components        | 27
+    | 10.7554/eLife.000536  | components        | 1

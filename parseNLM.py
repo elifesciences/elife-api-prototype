@@ -160,13 +160,16 @@ def authors(soup):
 	tags = extract_nodes(soup, "contrib", attr = "contrib-type", value = "author")
 	authors = []
 	position = 1
+	
+	article_doi = doi(soup)
+	
 	for tag in tags:
 		author = {}
 		
 		# Person id
 		try:
-			id = tag["id"]
-			author['id'] = id
+			person_id = tag["id"]
+			author['person_id'] = person_id
 		except(KeyError):
 			pass
 
@@ -251,7 +254,7 @@ def authors(soup):
 
 		# If not empty, add position value, append, then increment the position counter
 		if(len(author) > 0):
-			author['article_doi'] = doi(soup)
+			author['article_doi'] = article_doi
 			
 			author['position'] = position
 			authors.append(author)
@@ -268,8 +271,19 @@ def refs(soup):
 	tags = extract_nodes(soup, "ref")
 	refs = []
 	position = 1
+	
+	article_doi = doi(soup)
+	
 	for tag in tags:
 		ref = {}
+		
+		# etal
+		etal = extract_nodes(tag, "etal")
+		try:
+			if(etal[0]):
+				ref['etal'] = True
+		except(IndexError):
+			pass
 		
 		# ref - human readable full reference text
 		ref_text = tag.text
@@ -302,7 +316,7 @@ def refs(soup):
 			ref['publication_type'] = publication_type
 		except(KeyError, IndexError):
 			pass
-		
+
 		# authors
 		person_group = extract_nodes(tag, "person-group")
 		authors = []
@@ -350,13 +364,56 @@ def refs(soup):
 			
 		# If not empty, add position value, append, then increment the position counter
 		if(len(ref) > 0):
-			ref['article_doi'] = doi(soup)
+			ref['article_doi'] = article_doi
 			
 			ref['position'] = position
 			refs.append(ref)
 			position += 1
 	
 	return refs
+
+@flatten
+def components(soup):
+	"""
+	Find the components, i.e. those parts that would be assigned
+	a unique component DOI, such as figures, tables, etc.
+	"""
+	components = []
+	
+	component_types = ["fig", "table-wrap", "media", "chem-struct-wrap"]
+	
+	article_doi = doi(soup)
+	
+	for ctype in component_types:
+
+		tags = soup.find_all(ctype)
+		for tag in tags:
+			
+			component = {}
+			
+			# First find the doi if present
+			object_id = extract_node_text(tag, "object-id", attr = "pub-id-type", value = "doi")
+			if(object_id != None):
+				component['doi'] = object_id
+				component['doi_url'] = 'http://dx.doi.org/' + object_id
+
+			# Remove the object-id doi before extracting the text
+			try:
+				object_id = tag.find_all("object-id")
+				object_id[0].clear()
+			except(IndexError):
+				pass
+			
+			content = strip_strings(tag.text)
+			if(content != ""):
+				component['content'] = content
+		
+			if(len(component) > 0):
+				component['article_doi'] = article_doi
+				component['type'] = ctype
+				components.append(component)
+	
+	return components
 
 def journal_id(soup):
 	"""Find and return the primary journal id"""

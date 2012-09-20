@@ -109,9 +109,10 @@ def updateValues(objects):
     
     ids = None
     
+    # First try to find an existing object based on a key query
+    ids = findObject(key,  objrow[key])
     if(len(objrow['obj']) == 0):
-      # First try to find an existing object based on a key query
-      ids = findObject(key,  objrow[key])
+
       if(ids == None):
         obj = createObject()
         logger.info('created object: ' + obj)
@@ -124,16 +125,17 @@ def updateValues(objects):
       logger.info('using existing object: ' + obj)
 
     objpath = '/objects/' + obj + '/' + settings.namespace + '/' + key
-    
+
     # 2. Update the primary key value, doi for articles, etc.
     #    if the object is brand new
-    if((len(objrow['obj']) == 0) and (ids == None)):
+    if(ids == None):
       headers, content = fluidinfo.put(objpath, objrow[key])
       if(int(headers['status']) == 204):
         logger.info('added ' + key + ': ' + objrow[key])
       else:
         logger.warn('unhandled HTTP status for added ' + key + ': ' + objpath + ', ' + headers['status'])
         
+    if(ids == None):
       # Wait time: if the object id is returned, then fluidinfo is aware of the object
       #   if no object id is returned, then fluidinfo is not aware yet, and therefore
       #   wait for a little while before issuing a query based on the tag
@@ -182,4 +184,5 @@ def deleteValues(objects):
 
 
 # Call main, since all in one file it must be at the bottom
-main()
+if __name__ == "__main__":
+	main()
