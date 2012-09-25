@@ -1,13 +1,15 @@
 import settings
 import parseNLM
+import parseFI
 import os
 import log
 import json
 
 class article():
-	def __init__ (self, doi = None, pm = parseNLM):
+	def __init__ (self, doi = None, pm = parseNLM, fim = parseFI):
 		# Parser properties
 		self.pm = pm
+		self.fim = fim
 		self.filecontent = None
 		self.file_location = None
 		
@@ -64,14 +66,37 @@ class article():
 		self.refs = None
 		self.components = None
 
-	def set_file_location(self, path, doc):
+	def set_file_location(self, path = None, doc = None):
+		if(path == None and doc == None):
+			return None
+		if(path == None):
+			path = ""
 		document = doc.lstrip('"').rstrip('"')
 		self.file_location = path + document
 		
-	def parse_document(self):
-		self.xml = open(self.file_location)
-		self.filecontent = self.pm.parse_xml(self.xml)
+	def set_filecontent(self):
+		"""
+		Set the xml and filecontent from the data in the
+		file at file_location
+		"""
+		if(self.file_location != None):
+			self.xml = open(self.file_location)
+			self.filecontent = self.pm.parse_xml(self.xml)
 		
+	def parse_document(self, path = None, doc = None):
+		"""
+		Parse the XML data to populate the article object,
+		and set the file_location if path and doc given
+		"""
+		if(path != None or doc != None):
+			self.set_file_location(path, doc)
+			self.set_filecontent()
+		elif(self.file_location != None):
+			# If no path and doc supplied, but it was previously set
+			#  then just parse the file content
+			self.set_filecontent()
+			
+		# Parse the filecontent
 		self.doi = self.pm.doi(self.filecontent)
 		self.doi_url = 'http://dx.doi.org/' + self.doi
 		
@@ -129,6 +154,33 @@ class article():
 		self.refs = self.pm.refs(self.filecontent)
 		self.components = self.pm.components(self.filecontent)
 		
+	def load_from_fi(self):
+		"""
+		Load article data from fluidinfo using the DOI as the primary identifier
+		"""
+		if(self.doi == None):
+			 return None
+		uid, initial = self.fim.get_article_initial(self.doi)
+		if(uid != None):
+			obj = self.fim.fi_article(uid = uid, initial = initial)
+			# _path_map of the fom Object contains fluidinfo tag to
+			#  object attribute mapping - use the two pieces appropriate below
+			#  to load cached data from the object
+			for k, v in obj._path_map.items():
+				try:
+					# By using get_cached here we skip making an HTTP
+					#  get for every Object attribute
+					val = obj.get_cached(k)
+					if type(val) in [unicode,list,dict,int]:
+						# Only set if it is an allowed type, to avoid class instances
+						#  such as fom.mapping.UNKNOWN_VALUE
+						setattr(self, v, val)
+				except:
+					# Attribute in fom Object does not exist
+					continue
+				
+		# TO DO: load authors, refs and components
+
 	def data(self):
 		"""
 		Return selected dictionary values, for debugging purposes
@@ -136,7 +188,7 @@ class article():
 		"""
 		data = self.__dict__
 		for k, v in data.items():
-			if (k == "filecontent" or k == "pm" or k == "xml" or k == "file_location"):
+			if (k == "filecontent" or k == "pm" or k == "xml" or k == "file_location" or k == "fim"):
 				# Remove value
 				del data[k]
 		return data
@@ -148,11 +200,17 @@ def main():
 	#document = "NLM3-sample-for-elife.1.xml"
 	document = "elife-kitchen-sink.xml"
 	#document = "elife-sample-jun2012.xml"
-	a.set_file_location(settings.test_xml_path, document)
-	a.parse_document()
+	a.parse_document(settings.test_xml_path, document)
+	
+	# Second example test: load the object from fluidinfo data using fom object
+	#a = article(doi = "10.7554/eLife.00013")
+	#a.load_from_fi()
+	
 	# Debug data
 	#print a.data()
 	print json.dumps(a.data(), sort_keys=True, indent=4)
+
+	
 	
 if __name__ == "__main__":
 	main()
