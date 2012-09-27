@@ -62,11 +62,14 @@ tags = [
 	
   {'tag': 'article/refs',		'desc': ''},
 	
+  {'tag': 'article/components',		'desc': ''},
+	
   {'tag': 'article/xml',		'desc': ''},
   
   {'tag': 'person/id',		'desc': ''},
   
   {'tag': 'author/person_id',		'desc': ''},
+  {'tag': 'author/author',		'desc': ''},
   {'tag': 'author/equal_contrib',		'desc': ''},
   {'tag': 'author/article_doi',		'desc': ''},
   {'tag': 'author/surname',		'desc': ''},

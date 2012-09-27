@@ -64,7 +64,7 @@ class fi_article(Object):
 	components = tag_value(settings.namespace + '/article/components')
 	xml = tag_value(settings.namespace + '/article/xml')
 
-def get_article_initial(doi):
+def get_article_initial(doi, obj = None):
 	"""
 	Bulk load initial values from an existing article object
 	Return the fluiddb/id (uid) object value, and
@@ -73,7 +73,14 @@ def get_article_initial(doi):
 	uid = None
 	initial = {}
 	query = settings.namespace + '/article/doi = "' + doi + '"'
-	tag_list = ["*"]
+	# If a fom Object was supplied, get the tag list from its _path_map
+	#  otherwise, use the tag wildcard
+	if(obj != None):
+		tag_list = []
+		for k, v in obj._path_map.items():
+			tag_list.append(k)
+	else:
+		tag_list = ["*"]
 	objects = Fluid.bound.values.get(query, tag_list)
 	if(objects.content):
 		# Parse content returned with json library to convert null values, etc.
@@ -91,7 +98,7 @@ def main():
 	# Basic testing / debug during development
 
 	# Build an article object from XML file
-	document = "elife-kitchen-sink.xml"
+	document = "elife00013.xml"
 	a = artcl.article()
 	a.parse_document(settings.test_xml_path, document)
 	doi = a.doi
@@ -100,7 +107,8 @@ def main():
 	#doi = "10.7554/eLife.000536"
 
 	# Get existing object id and initial tag values, if it exists
-	uid, initial = get_article_initial(doi)
+	tmp_obj = fi_article();
+	uid, initial = get_article_initial(doi, tmp_obj)
 
 	# Build fom Object with initial values, unless no fi object found
 	#  then create a new object and set the doi
@@ -136,11 +144,46 @@ def main():
 	data = a.__dict__
 	for k, v in data.items():
 		# Set value
-		if not(k == "filecontent" or k == "pm" or k == "xml" or k == "file_location"
+		if(k == "authors"):
+			# Authors multi-dimensional array, flatten to one informational list
+			authors = []
+			for auth in v:
+				try:
+					authors.append(auth["author"])
+				except(KeyError):
+					continue
+			if(len(authors)>0):
+				setattr(obj, k, authors)
+
+		elif(k == "refs"):
+			# Refs multi-dimensional array, flatten to one informational list
+			refs = []
+			for ref in v:
+				try:
+					refs.append(ref["ref"])
+				except(KeyError):
+					continue
+			if(len(refs)>0):
+				setattr(obj, k, refs)
+				
+		elif(k == "components"):
+			# Components multi-dimensional array, flatten to one informational list
+			components = []
+			for comp in v:
+				try:
+					components.append(comp["doi_url"])
+				except(KeyError):
+					continue
+			if(len(components)>0):
+				setattr(obj, k, components)
+			
+		elif not(k == "filecontent" or k == "pm" or k == "xml" or k == "file_location"
 					 or k == "authors" or k == "refs" or k == "components" or k == "fim"):
-			print k
+			#print k
 			if(v != None):
 				setattr(obj, k, v)
+
+		
 				
 	print obj.doi_url
 

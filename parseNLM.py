@@ -252,6 +252,14 @@ def authors(soup):
 				except(KeyError):
 					author['city'] = city
 
+		# Author - given names + surname
+		author_name = ""
+		if(given_names != None):
+			author_name += given_names + " "
+		if(surname != None):
+			author_name += surname
+		author['author'] = author_name
+
 		# If not empty, add position value, append, then increment the position counter
 		if(len(author) > 0):
 			author['article_doi'] = article_doi

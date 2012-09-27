@@ -31,6 +31,13 @@ def main():
   #deleteTags()
   #deleteNamespaces()
   #deleteNamespace(namespace = '/' + settings.namespace)
+  
+  # Wipe an object of all values, if necessary
+  """
+  ids = ['b4449480-2c4f-4c52-a097-18ea984af36f']
+  for id in ids:
+    deleteAllValues(id)
+  """
 
 # 1. Create object, with no about tag
 def createObject():
@@ -180,7 +187,12 @@ def deleteValues(objects):
       logger.info('delete query successful on: ' + key + ' = ' + objrow[key])
     else:
       logger.warn('error in delete query on: ' + key + ' = ' + objrow[key])
-    
+      
+def deleteAllValues(id):
+  # Delete all values using fluidinfo id to find object, using wildcard
+  path = 'fluiddb/id = "' + id + '"'
+  tags = ["*"]
+  headers, content = fluidinfo.delete('/values', query=path, tags=tags) 
 
 
 # Call main, since all in one file it must be at the bottom

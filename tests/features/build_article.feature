@@ -13,7 +13,7 @@ Feature: Create an article object and parse XML input
 	
   Examples:
     | document                         | parser   | doi
-    | elife-kitchen-sink.xml           | parseNLM | 10.7554/eLife.00013
+    | elife00013.xml                   | parseNLM | 10.7554/eLife.00013
     | elife-sample-jun2012.xml         | parseNLM | 10.7554/eLife.000536
     | NLM3-sample-for-elife.1.xml      | parseNLM | 10.1083/jcb.201106079
     | NLM3-sample-for-elife.2.xml      | parseNLM | 10.1083/jcb.201106010
@@ -43,7 +43,7 @@ Feature: Create an article object and parse XML input
     | 10.7554/eLife.00013   | doi               | 10.7554/eLife.00013
     | 10.7554/eLife.00013   | doi_url           | http://dx.doi.org/10.7554/eLife.00013
     | 10.7554/eLife.00013   | pmid              | None
-    | 10.7554/eLife.00013   | article_title     | Bacterial regulation of colony development in the closest living relatives of animals
+    | 10.7554/eLife.00013   | article_title     | A bacterial sulfonolipid triggers multicellular development in the closest living relatives of animals
 		
     | 10.7554/eLife.00013   | article_institution  | None
     | 10.1083/jcb.201106079 | article_institution  | Department of Biochemistry, Stanford University Medical School, Stanford, CA 94305
@@ -51,7 +51,7 @@ Feature: Create an article object and parse XML input
 		| 10.7554/eLife.00013   | article_type   | research-article
 		| 10.1083/jcb.201106079 | article_type   | research-article
 		
-    | 10.7554/eLife.00013   | pub_date_date  | August 31, 2012
+    | 10.7554/eLife.00013   | pub_date_date  | October 10, 2012
     | 10.1083/jcb.201106079 | pub_date_date  | September 19, 2011
 		| 10.7554/eLife.000536  | pub_date_date  | June 26, 2012
 		
@@ -67,7 +67,7 @@ Feature: Create an article object and parse XML input
   Examples:
     | doi                   | property          | length
 		
-    | 10.7554/eLife.00013   | author_notes      | 2
+    | 10.7554/eLife.00013   | author_notes      | 1
     | 10.1083/jcb.201106079 | author_notes      | 1
     | 10.7554/eLife.000536  | author_notes      | 1
 		
@@ -75,7 +75,7 @@ Feature: Create an article object and parse XML input
     | 10.1083/jcb.201106079 | keywords          | 0
     | 10.7554/eLife.000536  | keywords          | 3
 		
-    | 10.7554/eLife.00013   | subject_area      | 3
+    | 10.7554/eLife.00013   | subject_area      | 2
     | 10.1083/jcb.201106079 | subject_area      | 2
     | 10.7554/eLife.000536  | subject_area      | 1
 		
@@ -83,9 +83,9 @@ Feature: Create an article object and parse XML input
     | 10.1083/jcb.201106079 | authors           | 4
     | 10.7554/eLife.000536  | authors           | 26
 		
-    | 10.7554/eLife.00013   | refs              | 103
+    | 10.7554/eLife.00013   | refs              | 105
     | 10.1083/jcb.201106079 | refs              | 57
     | 10.7554/eLife.000536  | refs              | 15
 		
-    | 10.7554/eLife.00013   | components        | 27
+    | 10.7554/eLife.00013   | components        | 26
     | 10.7554/eLife.000536  | components        | 1

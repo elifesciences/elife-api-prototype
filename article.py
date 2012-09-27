@@ -198,7 +198,8 @@ def main():
 	a = article()
 	#document = "elife_pmc_preview_version_17.xml"
 	#document = "NLM3-sample-for-elife.1.xml"
-	document = "elife-kitchen-sink.xml"
+	#document = "elife-kitchen-sink.xml"
+	document = "elife00013.xml"
 	#document = "elife-sample-jun2012.xml"
 	a.parse_document(settings.test_xml_path, document)
 	
