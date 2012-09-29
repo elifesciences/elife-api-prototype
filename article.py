@@ -171,15 +171,81 @@ class article():
 					# By using get_cached here we skip making an HTTP
 					#  get for every Object attribute
 					val = obj.get_cached(k)
-					if type(val) in [unicode,list,dict,int]:
+					if type(val) in [unicode,list,dict,int,bool]:
 						# Only set if it is an allowed type, to avoid class instances
 						#  such as fom.mapping.UNKNOWN_VALUE
 						setattr(self, v, val)
 				except:
 					# Attribute in fom Object does not exist
 					continue
-				
-		# TO DO: load authors, refs and components
+		
+		# Load authors
+		authors = []
+		query = settings.namespace + '/author/article_doi = "' + self.doi + '"'
+		fi_obj = self.fim.fi_author()
+		fi_type = "fi_author"
+		authors = self.load_subobjects_from_fi(query, fi_obj, fi_type)
+		setattr(self, "authors", authors)
+
+		# Load refs
+		refs = []
+		query = settings.namespace + '/ref/article_doi = "' + self.doi + '"'
+		fi_obj = self.fim.fi_ref()
+		fi_type = "fi_ref"
+		refs = self.load_subobjects_from_fi(query, fi_obj, fi_type)
+		setattr(self, "refs", refs)
+		
+		# Load components
+		components = []
+		query = settings.namespace + '/component/article_doi = "' + self.doi + '"'
+		fi_obj = self.fim.fi_component()
+		fi_type = "fi_component"
+		components = self.load_subobjects_from_fi(query, fi_obj, fi_type)
+		setattr(self, "components", components)
+
+	def load_subobjects_from_fi(self, query, fi_obj, fi_type):
+		"""
+		Authors, refs, and components are stored in fluidinfo as separate objects
+		Namespace tags are defined in the obj (fom object type)
+		This has been refactored out so it can be used in general purpose to bulk load
+		all objects of a type using a single HTTP query
+		"""
+		objects = []
+
+		if(fi_obj != None):
+			tag_list = []
+			for k, v in fi_obj._path_map.items():
+				tag_list.append(k)
+		else:
+			tag_list = ["*"]
+			
+		data = self.fim.values_get(query, tag_list)
+
+		if(data.content):
+			i = json.loads(data.content)
+			if(type(i) == dict):
+				for key, value in i["results"]['id'].items():
+					(uid, initial) = self.fim.get_uid_and_initial(key, value)
+					# Check fi_obj type - have not found a way around this non-callable object
+					if(fi_type == "fi_author"):
+						obj = self.fim.fi_author(uid = uid, initial = initial)
+					elif(fi_type == "fi_component"):
+						obj = self.fim.fi_component(uid = uid, initial = initial)
+					elif(fi_type == "fi_ref"):
+						obj = self.fim.fi_ref(uid = uid, initial = initial)
+					
+					object_values = {}
+	
+					for k, v in obj._path_map.items():
+						try:
+							val = obj.get_cached(k)
+							if type(val) in [unicode,list,dict,int,bool]:
+								object_values[v] = val
+						except:
+							continue
+					objects.append(object_values)
+			# All done parsing objects
+		return objects
 
 	def data(self):
 		"""

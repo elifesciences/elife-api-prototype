@@ -4,7 +4,7 @@ from fom.mapping import Object, tag_value
 import settings
 import time
 import calendar
-import article as artcl
+import article
 import json
 
 # Fluidinfo parser
@@ -64,6 +64,101 @@ class fi_article(Object):
 	components = tag_value(settings.namespace + '/article/components')
 	xml = tag_value(settings.namespace + '/article/xml')
 
+class fi_ref(Object):
+	ref = tag_value(settings.namespace + '/ref/ref')
+	article_doi = tag_value(settings.namespace + '/ref/article_doi')
+	article_title = tag_value(settings.namespace + '/ref/article_title')
+	publication_type = tag_value(settings.namespace + '/ref/publication_type')
+	doi = tag_value(settings.namespace + '/ref/doi')
+	doi_url = tag_value(settings.namespace + '/ref/doi_url')
+	pmid = tag_value(settings.namespace + '/ref/pmid')
+	authors = tag_value(settings.namespace + '/ref/authors')
+	year = tag_value(settings.namespace + '/ref/year')
+	source = tag_value(settings.namespace + '/ref/source')
+	volume = tag_value(settings.namespace + '/ref/volume')
+	fpage = tag_value(settings.namespace + '/ref/fpage')
+	lpage = tag_value(settings.namespace + '/ref/lpage')
+	collab = tag_value(settings.namespace + '/ref/collab')
+	publisher_loc = tag_value(settings.namespace + '/ref/publisher_loc')
+	publisher_name = tag_value(settings.namespace + '/ref/publisher_name')
+	position = tag_value(settings.namespace + '/ref/position')
+	etal = tag_value(settings.namespace + '/ref/etal')
+
+class fi_component(Object):
+	doi = tag_value(settings.namespace + '/component/doi')
+	doi_url = tag_value(settings.namespace + '/component/doi_url')
+	type = tag_value(settings.namespace + '/component/type')
+	content = tag_value(settings.namespace + '/component/content')
+	article_doi = tag_value(settings.namespace + '/component/article_doi')
+	
+class fi_author(Object):
+	author = tag_value(settings.namespace + '/author/author')
+	person_id = tag_value(settings.namespace + '/author/person_id')
+	equal_contrib = tag_value(settings.namespace + '/author/equal_contrib')
+	article_doi = tag_value(settings.namespace + '/author/article_doi')
+	surname = tag_value(settings.namespace + '/author/surname')
+	given_names = tag_value(settings.namespace + '/author/given_names')
+	department = tag_value(settings.namespace + '/author/department')
+	institution = tag_value(settings.namespace + '/author/institution')
+	city = tag_value(settings.namespace + '/author/city')
+	country = tag_value(settings.namespace + '/author/country')
+	corresponding = tag_value(settings.namespace + '/author/corresponding')
+	position = tag_value(settings.namespace + '/author/position')
+
+def get_uid_and_initial(key, value):
+	"""
+	Covert content returned from fom values get query
+	to uid and initial values to populate a fom object
+	Used by bulk load of values for a single object
+	or bulk load of many objects, for example find all references
+	of an article in one HTTP get, and build them without doing additional
+	HTTP
+	"""
+	uid = None
+	initial = {}
+
+	uid = key
+	for k, v in value.items():
+		initial[k] = {"value": v['value']}
+	return uid, initial
+
+def get_uid_from_query(query, obj = None):
+	"""
+	Refactored method to get the fluidinfo id (uid) and
+	existing initial values for an object based on a query
+	and optionally constrain the tag list returned based on
+	a fom object properties
+	"""
+	uid = None
+	initial = {}
+	# If a fom Object was supplied, get the tag list from its _path_map
+	#  otherwise, use the tag wildcard
+	if(obj != None):
+		tag_list = []
+		for k, v in obj._path_map.items():
+			tag_list.append(k)
+	else:
+		tag_list = ["*"]
+	objects = values_get(query, tag_list)
+	if(objects.content):
+		# Parse content returned, only handling one object at once
+		# at the moment
+		# Parse content returned with json library to convert null values, etc.
+		i = json.loads(objects.content)
+		if(type(i) == dict):
+			# Only handle one object at a time
+			for key, value in i["results"]['id'].items():
+				(uid, initial) = get_uid_and_initial(key, value)
+		
+	return uid, initial
+
+def values_get(query, tag_list):
+	"""
+	Pass-through values get function, to allow external libraries
+	to use fom without directly importing
+	"""
+	return Fluid.bound.values.get(query, tag_list)
+
 def get_article_initial(doi, obj = None):
 	"""
 	Bulk load initial values from an existing article object
@@ -73,122 +168,51 @@ def get_article_initial(doi, obj = None):
 	uid = None
 	initial = {}
 	query = settings.namespace + '/article/doi = "' + doi + '"'
-	# If a fom Object was supplied, get the tag list from its _path_map
-	#  otherwise, use the tag wildcard
-	if(obj != None):
-		tag_list = []
-		for k, v in obj._path_map.items():
-			tag_list.append(k)
-	else:
-		tag_list = ["*"]
-	objects = Fluid.bound.values.get(query, tag_list)
-	if(objects.content):
-		# Parse content returned with json library to convert null values, etc.
-		i = json.loads(objects.content)
-		if(type(i) == dict):
-			# Can only handle one object returned so far
-			for key, value in i["results"]['id'].items():
-				uid = key
-				for k, v in value.items():
-					initial[k] = {"value": v['value']}
-	return uid, initial
+	return get_uid_from_query(query, obj)
 
+def get_ref_initial(article_doi, position, obj = None):
+	"""
+	Bulk load initial values from an existing ref object
+	Uniquely keyed by the article_doi and the position of the ref in that article
+	Return the fluiddb/id (uid) object value, and
+	tag values (in initial) to populate a fom Object
+	"""
+	uid = None
+	initial = {}
+	query = settings.namespace + '/ref/article_doi = "' + article_doi + '"'
+	query += " and " + settings.namespace + '/ref/position = ' + str(position) + ''
+	return get_uid_from_query(query, obj)
+	
+def get_component_initial(article_doi, doi, obj = None):
+	"""
+	Bulk load initial values from an existing component object
+	Uniquely keyed by the article_doi and the doi of the component itself
+	Return the fluiddb/id (uid) object value, and
+	tag values (in initial) to populate a fom Object
+	"""
+	uid = None
+	initial = {}
+	query = settings.namespace + '/component/article_doi = "' + article_doi + '"'
+	query += " and " + settings.namespace + '/component/doi = "' + doi + '"'
+	return get_uid_from_query(query, obj)
+
+def get_author_initial(article_doi, position, obj = None):
+	"""
+	Bulk load initial values from an existing author object
+	Uniquely keyed by the article_doi and the position of the author in the article
+	Return the fluiddb/id (uid) object value, and
+	tag values (in initial) to populate a fom Object
+	"""
+	uid = None
+	initial = {}
+	query = settings.namespace + '/author/article_doi = "' + article_doi + '"'
+	query += " and " + settings.namespace + '/author/position = ' + str(position) + ''
+	return get_uid_from_query(query, obj)
 
 def main():
 	# Basic testing / debug during development
-
-	# Build an article object from XML file
-	document = "elife00013.xml"
-	a = artcl.article()
-	a.parse_document(settings.test_xml_path, document)
-	doi = a.doi
-
-	# Query for object by doi
-	#doi = "10.7554/eLife.000536"
-
-	# Get existing object id and initial tag values, if it exists
-	tmp_obj = fi_article();
-	uid, initial = get_article_initial(doi, tmp_obj)
-
-	# Build fom Object with initial values, unless no fi object found
-	#  then create a new object and set the doi
-	if(uid != None):
-		obj = fi_article(uid = uid, initial = initial)
-	else:
-		obj = fi_article();
-		obj.create();
-		obj.doi = doi
-		obj.save()
-
-	# Test print uid
-	print "UID: " + obj.uid
-
-	# Test print tag values from fom Object cache
-	"""
-	for tag in obj.tag_paths:
-		try:
-			print obj.get_cached(tag)
-		except(TypeError):
-			pass
-	"""
-
-	# Modify the object and save it
-	"""
-	if(obj.has("doi_url")):
-		obj.doi_url += '.'
-	else:
-		obj.doi_url = 'http://dx.doi.org/' + obj.doi
-	"""
-	
-	# Set values of article object to fi_article object
-	data = a.__dict__
-	for k, v in data.items():
-		# Set value
-		if(k == "authors"):
-			# Authors multi-dimensional array, flatten to one informational list
-			authors = []
-			for auth in v:
-				try:
-					authors.append(auth["author"])
-				except(KeyError):
-					continue
-			if(len(authors)>0):
-				setattr(obj, k, authors)
-
-		elif(k == "refs"):
-			# Refs multi-dimensional array, flatten to one informational list
-			refs = []
-			for ref in v:
-				try:
-					refs.append(ref["ref"])
-				except(KeyError):
-					continue
-			if(len(refs)>0):
-				setattr(obj, k, refs)
-				
-		elif(k == "components"):
-			# Components multi-dimensional array, flatten to one informational list
-			components = []
-			for comp in v:
-				try:
-					components.append(comp["doi_url"])
-				except(KeyError):
-					continue
-			if(len(components)>0):
-				setattr(obj, k, components)
-			
-		elif not(k == "filecontent" or k == "pm" or k == "xml" or k == "file_location"
-					 or k == "authors" or k == "refs" or k == "components" or k == "fim"):
-			#print k
-			if(v != None):
-				setattr(obj, k, v)
-
-		
-				
-	print obj.doi_url
-
-	# Save changes
-	obj.save()
+	# moved to load_article.py
+	pass
 
 if __name__ == "__main__":
 	main()

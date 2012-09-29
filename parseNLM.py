@@ -169,6 +169,7 @@ def authors(soup):
 		# Person id
 		try:
 			person_id = tag["id"]
+			person_id = person_id.replace("author-", "")
 			author['person_id'] = person_id
 		except(KeyError):
 			pass

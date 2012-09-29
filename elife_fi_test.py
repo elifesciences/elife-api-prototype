@@ -37,6 +37,7 @@ def main():
   ids = ['b4449480-2c4f-4c52-a097-18ea984af36f']
   for id in ids:
     deleteAllValues(id)
+    print id
   """
 
 # 1. Create object, with no about tag
