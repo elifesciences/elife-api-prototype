@@ -391,36 +391,44 @@ def components(soup):
 	
 	component_types = ["fig", "table-wrap", "media", "chem-struct-wrap"]
 	
+	position = 1
+	
 	article_doi = doi(soup)
 	
-	for ctype in component_types:
-
-		tags = soup.find_all(ctype)
-		for tag in tags:
-			
-			component = {}
-			
-			# First find the doi if present
-			object_id = extract_node_text(tag, "object-id", attr = "pub-id-type", value = "doi")
-			if(object_id != None):
-				component['doi'] = object_id
-				component['doi_url'] = 'http://dx.doi.org/' + object_id
-
-			# Remove the object-id doi before extracting the text
-			try:
-				object_id = tag.find_all("object-id")
-				object_id[0].clear()
-			except(IndexError):
-				pass
-			
-			content = strip_strings(tag.text)
-			if(content != ""):
-				component['content'] = content
+	# Find all tags for all component_types, allows the order
+	#  in which they are found to be preserved
+	tags = soup.find_all(component_types) 
+	
+	for tag in tags:
 		
-			if(len(component) > 0):
-				component['article_doi'] = article_doi
-				component['type'] = ctype
-				components.append(component)
+		component = {}
+		
+		# Component type is the tag's name
+		ctype = tag.name
+		
+		# First find the doi if present
+		object_id = extract_node_text(tag, "object-id", attr = "pub-id-type", value = "doi")
+		if(object_id != None):
+			component['doi'] = object_id
+			component['doi_url'] = 'http://dx.doi.org/' + object_id
+
+		# Remove the object-id doi before extracting the text
+		try:
+			object_id = tag.find_all("object-id")
+			object_id[0].clear()
+		except(IndexError):
+			pass
+		
+		content = strip_strings(tag.text)
+		if(content != ""):
+			component['content'] = content
+	
+		if(len(component) > 0):
+			component['article_doi'] = article_doi
+			component['type'] = ctype
+			component['position'] = position
+			components.append(component)
+			position += 1
 	
 	return components
 

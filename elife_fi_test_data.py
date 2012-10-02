@@ -124,6 +124,7 @@ tags = [
   {'tag': 'component/type',		'desc': ''},
   {'tag': 'component/content',		'desc': ''},
   {'tag': 'component/article_doi',		'desc': ''},
+  {'tag': 'component/position',		'desc': ''},
 	
 ]
 

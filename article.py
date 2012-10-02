@@ -4,6 +4,7 @@ import parseFI
 import os
 import log
 import json
+import operator
 
 class article():
 	def __init__ (self, doi = None, pm = parseNLM, fim = parseFI):
@@ -185,6 +186,8 @@ class article():
 		fi_obj = self.fim.fi_author()
 		fi_type = "fi_author"
 		authors = self.load_subobjects_from_fi(query, fi_obj, fi_type)
+		# Sort list by authors[x]['position']
+		authors.sort(key=operator.itemgetter('position'))
 		setattr(self, "authors", authors)
 
 		# Load refs
@@ -193,6 +196,8 @@ class article():
 		fi_obj = self.fim.fi_ref()
 		fi_type = "fi_ref"
 		refs = self.load_subobjects_from_fi(query, fi_obj, fi_type)
+		# Sort list by refs[x]['position']
+		refs.sort(key=operator.itemgetter('position'))
 		setattr(self, "refs", refs)
 		
 		# Load components
@@ -201,6 +206,8 @@ class article():
 		fi_obj = self.fim.fi_component()
 		fi_type = "fi_component"
 		components = self.load_subobjects_from_fi(query, fi_obj, fi_type)
+		# Sort list by components[x]['position']
+		components.sort(key=operator.itemgetter('position'))
 		setattr(self, "components", components)
 
 	def load_subobjects_from_fi(self, query, fi_obj, fi_type):

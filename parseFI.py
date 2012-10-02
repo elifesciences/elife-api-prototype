@@ -90,6 +90,7 @@ class fi_component(Object):
 	type = tag_value(settings.namespace + '/component/type')
 	content = tag_value(settings.namespace + '/component/content')
 	article_doi = tag_value(settings.namespace + '/component/article_doi')
+	position = tag_value(settings.namespace + '/component/position')
 	
 class fi_author(Object):
 	author = tag_value(settings.namespace + '/author/author')
