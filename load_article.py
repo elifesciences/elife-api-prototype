@@ -22,15 +22,17 @@ def load_article_into_fi(a = None):
 
 	# Get existing object id and initial tag values, if it exists
 	tmp_obj = fim.fi_article();
-	uid, initial = fim.get_article_initial(doi, tmp_obj)
-
+	doi_url = a.doi_url
+	about, uid, initial = fim.get_article_initial(doi_url, tmp_obj)
+	print about
 	# Build fom Object with initial values, unless no fi object found
 	#  then create a new object and set the doi
-	if(uid != None):
-		obj = fim.fi_article(uid = uid, initial = initial)
+	if(about != None):
+		obj = fim.fi_article(about = about, uid = uid, initial = initial)
 	else:
+		about = a.doi_url
 		obj = fim.fi_article();
-		obj.create();
+		obj.create(about = about);
 		obj.doi = doi
 		obj.save()
 
@@ -98,15 +100,16 @@ def load_article_into_fi(a = None):
 		position = ref["position"]
 		
 		tmp_obj = fim.fi_ref();
-		uid, initial = fim.get_ref_initial(article_doi, position, tmp_obj)
+		about, uid, initial = fim.get_ref_initial(article_doi, position, tmp_obj)
 
 		# Build fom Object with initial values, unless no fi object found
 		#  then create a new object and set the doi
 		if(uid != None):
-			obj = fim.fi_ref(uid = uid, initial = initial)
+			obj = fim.fi_ref(about = about, uid = uid, initial = initial)
 		else:
+			about = 'ref' + '_' + str(position) + '_' + article_doi + '"'
 			obj = fim.fi_ref();
-			obj.create();
+			obj.create(about = about);
 			obj.article_doi = article_doi
 			obj.position = position
 			obj.save()
@@ -130,15 +133,16 @@ def load_article_into_fi(a = None):
 		component_doi = component["doi"]
 		
 		tmp_obj = fim.fi_component();
-		uid, initial = fim.get_component_initial(article_doi, component_doi, tmp_obj)
+		about, uid, initial = fim.get_component_initial(article_doi, component_doi, tmp_obj)
 
 		# Build fom Object with initial values, unless no fi object found
 		#  then create a new object and set the doi
 		if(uid != None):
-			obj = fim.fi_component(uid = uid, initial = initial)
+			obj = fim.fi_component(about = about, uid = uid, initial = initial)
 		else:
+			about = component_doi
 			obj = fim.fi_component();
-			obj.create();
+			obj.create(about = about);
 			obj.article_doi = article_doi
 			obj.doi = component_doi
 			obj.save()
@@ -162,15 +166,16 @@ def load_article_into_fi(a = None):
 		position = author["position"]
 		
 		tmp_obj = fim.fi_author();
-		uid, initial = fim.get_author_initial(article_doi, position, tmp_obj)
+		about, uid, initial = fim.get_author_initial(article_doi, position, tmp_obj)
 
 		# Build fom Object with initial values, unless no fi object found
 		#  then create a new object and set the doi
 		if(uid != None):
-			obj = fim.fi_author(uid = uid, initial = initial)
+			obj = fim.fi_author(about = about, uid = uid, initial = initial)
 		else:
+			about = 'author' + '_' + str(position) + '_' + article_doi + '"'
 			obj = fim.fi_author();
-			obj.create();
+			obj.create(about = about);
 			obj.article_doi = article_doi
 			obj.position = position
 			obj.save()

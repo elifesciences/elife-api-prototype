@@ -260,12 +260,88 @@ def authors(soup):
 		if(surname != None):
 			author_name += surname
 		author['author'] = author_name
+		
+		# Add xref linked correspondence author notes if applicable
+		cors = extract_nodes(tag, "xref", attr = "ref-type", value = "corresp")
+		if(len(cors) > 0):
+			# One or more 
+			if(len(cors) > 1):
+				# Prepare for multiple values if multiples found
+				author['notes_correspondence'] = []
+				
+			for cor in cors:
+				# Find the matching affiliation detail
+				rid = cor['rid']
+
+				# Find elements by id
+				try:
+					corresp_node = soup.select("#" + rid)
+					author_notes = corresp_node[0].text
+				except:
+					continue
+				try:
+					# Multiple values
+					author['notes_correspondence'].append(author_notes)
+				except(KeyError):
+					author['notes_correspondence'] = author_notes
+					
+		# Add xref linked footnotes if applicable
+		fns = extract_nodes(tag, "xref", attr = "ref-type", value = "fn")
+		if(len(fns) > 0):
+			# One or more 
+			if(len(fns) > 1):
+				# Prepare for multiple values if multiples found
+				author['notes_footnotes'] = []
+				
+			for fn in fns:
+				# Find the matching affiliation detail
+				rid = fn['rid']
+
+				# Find elements by id
+				try:
+					fn_node = soup.select("#" + rid)
+					fn_text = fn_node[0].text
+				except:
+					continue
+				try:
+					# Multiple values
+					author['notes_footnotes'].append(fn_text)
+				except(KeyError):
+					author['notes_footnotes'] = fn_text
+					
+		# Add xref linked other notes if applicable, such as funding detail
+		others = extract_nodes(tag, "xref", attr = "ref-type", value = "other")
+		if(len(others) > 0):
+			# One or more 
+			if(len(others) > 1):
+				# Prepare for multiple values if multiples found
+				author['notes_other'] = []
+				
+			for other in others:
+				# Find the matching affiliation detail
+				rid = other['rid']
+
+				# Find elements by id
+				try:
+					other_node = soup.select("#" + rid)
+					other_text = other_node[0].text
+				except:
+					continue
+				try:
+					# Multiple values
+					author['notes_other'].append(other_text)
+				except(KeyError):
+					author['notes_other'] = other_text	
 
 		# If not empty, add position value, append, then increment the position counter
 		if(len(author) > 0):
 			author['article_doi'] = article_doi
 			
 			author['position'] = position
+			
+			# Create a unique about tag value to make fom objects function
+			author['about'] = 'author' + '_' + str(position) + '_' + article_doi
+			
 			authors.append(author)
 			position += 1
 		
@@ -376,6 +452,10 @@ def refs(soup):
 			ref['article_doi'] = article_doi
 			
 			ref['position'] = position
+			
+			# Create a unique about tag value to make fom objects function
+			ref['about'] = 'ref' + '_' + str(position) + '_' + article_doi
+			
 			refs.append(ref)
 			position += 1
 	
@@ -389,7 +469,7 @@ def components(soup):
 	"""
 	components = []
 	
-	component_types = ["fig", "table-wrap", "media", "chem-struct-wrap"]
+	component_types = ["abstract", "fig", "table-wrap", "media", "chem-struct-wrap", "sub-article"]
 	
 	position = 1
 	
@@ -407,19 +487,32 @@ def components(soup):
 		ctype = tag.name
 		
 		# First find the doi if present
-		object_id = extract_node_text(tag, "object-id", attr = "pub-id-type", value = "doi")
-		if(object_id != None):
+		if(ctype == "sub-article"):
+			object_id = extract_node_text(tag, "article-id", attr = "pub-id-type", value = "doi")
+		else:
+			object_id = extract_node_text(tag, "object-id", attr = "pub-id-type", value = "doi")
+		if(object_id is not None):
 			component['doi'] = object_id
 			component['doi_url'] = 'http://dx.doi.org/' + object_id
+		else:
+			# If no object-id is found, then skip this component
+			continue
 
 		# Remove the object-id doi before extracting the text
+		extracted_tags = []
 		try:
-			object_id = tag.find_all("object-id")
-			object_id[0].clear()
+			object_id = tag.find_all(["article-id", "object-id"])
+			extracted_tags.append(object_id[0].extract())
+			#object_id[0].clear()
 		except(IndexError):
 			pass
-		
+
 		content = strip_strings(tag.text)
+
+		# Put the extracted tags back in, hacky as the original order is not preserved
+		for et in extracted_tags:
+			tag.insert(0, et)
+			
 		if(content != ""):
 			component['content'] = content
 	
@@ -427,6 +520,10 @@ def components(soup):
 			component['article_doi'] = article_doi
 			component['type'] = ctype
 			component['position'] = position
+			
+			# Use the component DOI as the unique about tag value
+			component['about'] = component['doi_url']
+			
 			components.append(component)
 			position += 1
 	
@@ -465,18 +562,15 @@ def abstract(soup):
 	"""
 	Find the article abstract and format it
 	"""
-	
+
 	abstract_soup = []
 	# Strip out the object-id so we only have the text
 	try:
 		abstract_soup = soup.find_all("abstract")
-		for tag in abstract_soup:
-			object_id = tag.find_all("object-id")
-			object_id[0].clear()
 	except(IndexError):
 		# No abstract found
 		pass
-	
+
 	# Find the desired abstract node, <abstract>
 	for tag in abstract_soup:
 		try:
@@ -500,10 +594,20 @@ def abstract(soup):
 	# Done unwrapping allowed tags, now delete tags and enclosed
 	# content of unallowed tags
 	all = abstract_node.find_all()
+
+	extracted_tags = []
 	for a in all:
-		a.clear()
+		# Extract the tags we do not want text from, and we will insert the tags back later
+		#  using clear() will destroy them for good, and breaks the getting components by DOI
+		extracted_tags.append(a.extract())
+		#a.clear()
 
 	abstract = abstract_node.text
+
+	# Put the extracted tags back in, hacky as the original order is not preserved
+	for et in extracted_tags:
+		abstract_node.insert(0, et)
+	
 	return abstract
 
 @flatten
@@ -697,42 +801,80 @@ def get_pub_date(soup, pub_type = "ppub"):
 	except(IndexError):
 		# Tag not found, try the other
 		return None
-	return time.strptime(year + "-" + month + "-" + day + " " + tz, "%Y-%m-%d %Z")
+	
+	date_string = None
+	try:
+		date_string = time.strptime(year + "-" + month + "-" + day + " " + tz, "%Y-%m-%d %Z")
+	except(TypeError):
+		# Date did not convert
+		pass
+
+	return date_string
 
 def pub_date_date(soup):
 	"""
 	Find the publishing date pub_date_date in human readable form
 	"""
 	pub_date = get_pub_date(soup)
-	return time.strftime("%B %d, %Y", pub_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%B %d, %Y", pub_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 	
 def pub_date_day(soup):
 	"""
 	Find the publishing date pub_date_day
 	"""
 	pub_date = get_pub_date(soup)
-	return time.strftime("%d", pub_date)
+	date_string = None
+	try:
+		date_string =  time.strftime("%d", pub_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def pub_date_month(soup):
 	"""
 	Find the publishing date pub_date_day
 	"""
 	pub_date = get_pub_date(soup)
-	return time.strftime("%m", pub_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%m", pub_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 	
 def pub_date_year(soup):
 	"""
 	Find the publishing date pub_date_day
 	"""
 	pub_date = get_pub_date(soup)
-	return time.strftime("%Y", pub_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%Y", pub_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def pub_date_timestamp(soup):
 	"""
 	Find the publishing date pub_date_timestamp, in UTC time
 	"""
 	pub_date = get_pub_date(soup)
-	return calendar.timegm(pub_date)
+	timestamp = None
+	try:
+		timestamp = calendar.timegm(pub_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return timestamp
 
 def get_history_date(soup, date_type = None):
 	"""
@@ -758,70 +900,130 @@ def received_date_date(soup):
 	Find the received date received_date_date in human readable form
 	"""
 	received_date = get_history_date(soup, date_type = "received")
-	return time.strftime("%B %d, %Y", received_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%B %d, %Y", received_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def received_date_day(soup):
 	"""
 	Find the received date received_date_day
 	"""
 	received_date = get_history_date(soup, date_type = "received")
-	return time.strftime("%d", received_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%d", received_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def received_date_month(soup):
 	"""
 	Find the received date received_date_day
 	"""
 	received_date = get_history_date(soup, date_type = "received")
-	return time.strftime("%m", received_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%m", received_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 	
 def received_date_year(soup):
 	"""
 	Find the received date received_date_day
 	"""
 	received_date = get_history_date(soup, date_type = "received")
-	return time.strftime("%Y", received_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%Y", received_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def received_date_timestamp(soup):
 	"""
 	Find the received date received_date_timestamp, in UTC time
 	"""
 	received_date = get_history_date(soup, date_type = "received")
-	return calendar.timegm(received_date)
+	timestamp = None
+	try:
+		timestamp = calendar.timegm(received_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return timestamp
 	
 def accepted_date_date(soup):
 	"""
 	Find the accepted date accepted_date_date in human readable form
 	"""
 	accepted_date = get_history_date(soup, date_type = "accepted")
-	return time.strftime("%B %d, %Y", accepted_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%B %d, %Y", accepted_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def accepted_date_day(soup):
 	"""
 	Find the accepted date accepted_date_day
 	"""
 	accepted_date = get_history_date(soup, date_type = "accepted")
-	return time.strftime("%d", accepted_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%d", accepted_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def accepted_date_month(soup):
 	"""
 	Find the accepted date accepted_date_day
 	"""
 	accepted_date = get_history_date(soup, date_type = "accepted")
-	return time.strftime("%m", accepted_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%m", accepted_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 	
 def accepted_date_year(soup):
 	"""
 	Find the accepted date accepted_date_day
 	"""
 	accepted_date = get_history_date(soup, date_type = "accepted")
-	return time.strftime("%Y", accepted_date)
+	date_string = None
+	try:
+		date_string = time.strftime("%Y", accepted_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return date_string
 
 def accepted_date_timestamp(soup):
 	"""
 	Find the accepted date accepted_date_timestamp, in UTC time
 	"""
 	accepted_date = get_history_date(soup, date_type = "accepted")
-	return calendar.timegm(accepted_date)
+	timestamp = None
+	try:
+		timestamp = calendar.timegm(accepted_date)
+	except(TypeError):
+		# Date did not convert
+		pass
+	return timestamp
 
 def get_funding_group(soup):
 	"""

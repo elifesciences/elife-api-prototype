@@ -1,6 +1,6 @@
 from fom.session import Fluid
 from fom.mapping import Namespace, Tag
-from fom.mapping import Object, tag_value
+from fom.mapping import Object, tag_value, readonly_tag_value
 import settings
 import time
 import calendar
@@ -14,6 +14,7 @@ session.login(settings.username, settings.password)
 session.bind()
 
 class fi_article(Object):
+	about = readonly_tag_value(u'fluiddb/about')
 	doi = tag_value(settings.namespace + '/article/doi')
 	doi_url = tag_value(settings.namespace + '/article/doi_url')
 	pmid = tag_value(settings.namespace + '/article/pmid')
@@ -62,9 +63,9 @@ class fi_article(Object):
 	authors = tag_value(settings.namespace + '/article/authors')
 	refs = tag_value(settings.namespace + '/article/refs')
 	components = tag_value(settings.namespace + '/article/components')
-	xml = tag_value(settings.namespace + '/article/xml')
 
 class fi_ref(Object):
+	about = readonly_tag_value(u'fluiddb/about')
 	ref = tag_value(settings.namespace + '/ref/ref')
 	article_doi = tag_value(settings.namespace + '/ref/article_doi')
 	article_title = tag_value(settings.namespace + '/ref/article_title')
@@ -85,6 +86,7 @@ class fi_ref(Object):
 	etal = tag_value(settings.namespace + '/ref/etal')
 
 class fi_component(Object):
+	about = readonly_tag_value(u'fluiddb/about')
 	doi = tag_value(settings.namespace + '/component/doi')
 	doi_url = tag_value(settings.namespace + '/component/doi_url')
 	type = tag_value(settings.namespace + '/component/type')
@@ -93,6 +95,7 @@ class fi_component(Object):
 	position = tag_value(settings.namespace + '/component/position')
 	
 class fi_author(Object):
+	about = readonly_tag_value(u'fluiddb/about')
 	author = tag_value(settings.namespace + '/author/author')
 	person_id = tag_value(settings.namespace + '/author/person_id')
 	equal_contrib = tag_value(settings.namespace + '/author/equal_contrib')
@@ -105,6 +108,9 @@ class fi_author(Object):
 	country = tag_value(settings.namespace + '/author/country')
 	corresponding = tag_value(settings.namespace + '/author/corresponding')
 	position = tag_value(settings.namespace + '/author/position')
+	notes_correspondence = tag_value(settings.namespace + '/author/notes_correspondence')
+	notes_footnotes = tag_value(settings.namespace + '/author/notes_footnotes')
+	notes_other = tag_value(settings.namespace + '/author/notes_other')
 
 def get_uid_and_initial(key, value):
 	"""
@@ -116,12 +122,15 @@ def get_uid_and_initial(key, value):
 	HTTP
 	"""
 	uid = None
+	about = None
 	initial = {}
 
 	uid = key
 	for k, v in value.items():
+		if(k == 'fluiddb/about'):
+			about = v['value']
 		initial[k] = {"value": v['value']}
-	return uid, initial
+	return about, uid, initial
 
 def get_uid_from_query(query, obj = None):
 	"""
@@ -131,6 +140,7 @@ def get_uid_from_query(query, obj = None):
 	a fom object properties
 	"""
 	uid = None
+	about = None
 	initial = {}
 	# If a fom Object was supplied, get the tag list from its _path_map
 	#  otherwise, use the tag wildcard
@@ -149,9 +159,9 @@ def get_uid_from_query(query, obj = None):
 		if(type(i) == dict):
 			# Only handle one object at a time
 			for key, value in i["results"]['id'].items():
-				(uid, initial) = get_uid_and_initial(key, value)
+				(about, uid, initial) = get_uid_and_initial(key, value)
 		
-	return uid, initial
+	return about, uid, initial
 
 def values_get(query, tag_list):
 	"""
@@ -160,7 +170,7 @@ def values_get(query, tag_list):
 	"""
 	return Fluid.bound.values.get(query, tag_list)
 
-def get_article_initial(doi, obj = None):
+def get_article_initial(doi_url, obj = None):
 	"""
 	Bulk load initial values from an existing article object
 	Return the fluiddb/id (uid) object value, and
@@ -168,7 +178,7 @@ def get_article_initial(doi, obj = None):
 	"""
 	uid = None
 	initial = {}
-	query = settings.namespace + '/article/doi = "' + doi + '"'
+	query = 'fluiddb/about = "' + doi_url + '"'
 	return get_uid_from_query(query, obj)
 
 def get_ref_initial(article_doi, position, obj = None):
@@ -180,8 +190,7 @@ def get_ref_initial(article_doi, position, obj = None):
 	"""
 	uid = None
 	initial = {}
-	query = settings.namespace + '/ref/article_doi = "' + article_doi + '"'
-	query += " and " + settings.namespace + '/ref/position = ' + str(position) + ''
+	query = 'fluiddb/about = "' + 'ref' + '_' + str(position) + '_' + article_doi + '"'
 	return get_uid_from_query(query, obj)
 	
 def get_component_initial(article_doi, doi, obj = None):
@@ -193,8 +202,7 @@ def get_component_initial(article_doi, doi, obj = None):
 	"""
 	uid = None
 	initial = {}
-	query = settings.namespace + '/component/article_doi = "' + article_doi + '"'
-	query += " and " + settings.namespace + '/component/doi = "' + doi + '"'
+	query = 'fluiddb/about = "' + doi + '"'
 	return get_uid_from_query(query, obj)
 
 def get_author_initial(article_doi, position, obj = None):
@@ -206,8 +214,7 @@ def get_author_initial(article_doi, position, obj = None):
 	"""
 	uid = None
 	initial = {}
-	query = settings.namespace + '/author/article_doi = "' + article_doi + '"'
-	query += " and " + settings.namespace + '/author/position = ' + str(position) + ''
+	query = 'fluiddb/about = "' + 'author' + '_' + str(position) + '_' + article_doi + '"'
 	return get_uid_from_query(query, obj)
 
 def main():

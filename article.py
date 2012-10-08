@@ -15,9 +15,12 @@ class article():
 		self.file_location = None
 		
 		# Data properties
+		self.about = None
 		self.doi = doi
-		self.xml = None
 		self.doi_url = None
+		if(doi is not None):
+			self.doi_url = 'http://dx.doi.org/' + self.doi
+		self.xml = None
 		self.pmid = None
 		
 		self.journal_id = None
@@ -101,6 +104,9 @@ class article():
 		self.doi = self.pm.doi(self.filecontent)
 		self.doi_url = 'http://dx.doi.org/' + self.doi
 		
+		# About tag value for an article is the DOI in URL format
+		self.about = self.doi_url
+		
 		self.pmid = self.pm.pmid(self.filecontent)
 		self.article_title = self.pm.article_title(self.filecontent)
 		self.journal_id = self.pm.journal_id(self.filecontent)
@@ -161,9 +167,13 @@ class article():
 		"""
 		if(self.doi == None):
 			 return None
-		uid, initial = self.fim.get_article_initial(self.doi)
-		if(uid != None):
-			obj = self.fim.fi_article(uid = uid, initial = initial)
+		about, uid, initial = self.fim.get_article_initial(self.doi_url)
+		if(about != None):
+			obj = self.fim.fi_article(about = about, uid = uid, initial = initial)
+			
+			# Set the about tag, which is absent from the _path_map
+			setattr(self, 'about', obj.about)
+			
 			# _path_map of the fom Object contains fluidinfo tag to
 			#  object attribute mapping - use the two pieces appropriate below
 			#  to load cached data from the object
@@ -232,16 +242,22 @@ class article():
 			i = json.loads(data.content)
 			if(type(i) == dict):
 				for key, value in i["results"]['id'].items():
-					(uid, initial) = self.fim.get_uid_and_initial(key, value)
+					(about, uid, initial) = self.fim.get_uid_and_initial(key, value)
 					# Check fi_obj type - have not found a way around this non-callable object
 					if(fi_type == "fi_author"):
-						obj = self.fim.fi_author(uid = uid, initial = initial)
+						obj = self.fim.fi_author(about = about, uid = uid, initial = initial)
 					elif(fi_type == "fi_component"):
-						obj = self.fim.fi_component(uid = uid, initial = initial)
+						obj = self.fim.fi_component(about = about, uid = uid, initial = initial)
 					elif(fi_type == "fi_ref"):
-						obj = self.fim.fi_ref(uid = uid, initial = initial)
+						obj = self.fim.fi_ref(about = about, uid = uid, initial = initial)
 					
 					object_values = {}
+	
+					# Set the about tag, which is absent from the _path_map
+					try:
+						object_values['about'] = obj.about
+					except:
+						pass
 	
 					for k, v in obj._path_map.items():
 						try:
