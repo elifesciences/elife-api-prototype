@@ -461,7 +461,6 @@ def refs(soup):
 	
 	return refs
 
-@flatten
 def components(soup):
 	"""
 	Find the components, i.e. those parts that would be assigned
