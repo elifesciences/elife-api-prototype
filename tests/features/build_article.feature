@@ -51,7 +51,7 @@ Feature: Create an article object and parse XML input
 		| 10.7554/eLife.00013   | article_type   | research-article
 		| 10.1083/jcb.201106079 | article_type   | research-article
 		
-    | 10.7554/eLife.00013   | pub_date_date  | October 10, 2012
+    | 10.7554/eLife.00013   | pub_date_date  | October 15, 2012
     | 10.1083/jcb.201106079 | pub_date_date  | September 19, 2011
 		| 10.7554/eLife.000536  | pub_date_date  | June 26, 2012
 		
@@ -87,5 +87,5 @@ Feature: Create an article object and parse XML input
     | 10.1083/jcb.201106079 | refs              | 57
     | 10.7554/eLife.000536  | refs              | 15
 		
-    | 10.7554/eLife.00013   | components        | 26
+    | 10.7554/eLife.00013   | components        | 30
     | 10.7554/eLife.000536  | components        | 1
