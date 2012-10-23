@@ -73,6 +73,21 @@ def strippen(function):
 		return strip_strings(value)
 	return wrapper
 
+def inten(function):
+	"""
+	Try to convert to int as a decorator
+	"""
+	def wrapper(*args, **kwargs):
+		value = function(*args, **kwargs)
+		if (value == None):
+			return None
+		else:
+			try:
+				return int(value)
+			except(TypeError):
+				return value
+	return wrapper
+
 def revert_entities(function):
 	"this is the decorator"
 	def wrapper(*args, **kwargs):
@@ -170,7 +185,7 @@ def authors(soup):
 		try:
 			person_id = tag["id"]
 			person_id = person_id.replace("author-", "")
-			author['person_id'] = person_id
+			author['person_id'] = int(person_id)
 		except(KeyError):
 			pass
 
@@ -530,7 +545,7 @@ def components(soup):
 
 def journal_id(soup):
 	"""Find and return the primary journal id"""
-	journal_id = extract_node_text(soup, "journal-ids", attr = "journal-id-type", value = "hwp")
+	journal_id = extract_node_text(soup, "journal-id", attr = "journal-id-type", value = "hwp")
 	return journal_id
 
 @strippen
@@ -822,7 +837,8 @@ def pub_date_date(soup):
 		# Date did not convert
 		pass
 	return date_string
-	
+
+@inten
 def pub_date_day(soup):
 	"""
 	Find the publishing date pub_date_day
@@ -836,6 +852,7 @@ def pub_date_day(soup):
 		pass
 	return date_string
 
+@inten
 def pub_date_month(soup):
 	"""
 	Find the publishing date pub_date_day
@@ -849,6 +866,7 @@ def pub_date_month(soup):
 		pass
 	return date_string
 	
+@inten
 def pub_date_year(soup):
 	"""
 	Find the publishing date pub_date_day
@@ -907,6 +925,7 @@ def received_date_date(soup):
 		pass
 	return date_string
 
+@inten
 def received_date_day(soup):
 	"""
 	Find the received date received_date_day
@@ -920,6 +939,7 @@ def received_date_day(soup):
 		pass
 	return date_string
 
+@inten
 def received_date_month(soup):
 	"""
 	Find the received date received_date_day
@@ -933,6 +953,7 @@ def received_date_month(soup):
 		pass
 	return date_string
 	
+@inten
 def received_date_year(soup):
 	"""
 	Find the received date received_date_day
@@ -972,6 +993,7 @@ def accepted_date_date(soup):
 		pass
 	return date_string
 
+@inten
 def accepted_date_day(soup):
 	"""
 	Find the accepted date accepted_date_day
@@ -985,6 +1007,7 @@ def accepted_date_day(soup):
 		pass
 	return date_string
 
+@inten
 def accepted_date_month(soup):
 	"""
 	Find the accepted date accepted_date_day
@@ -998,6 +1021,7 @@ def accepted_date_month(soup):
 		pass
 	return date_string
 	
+@inten
 def accepted_date_year(soup):
 	"""
 	Find the accepted date accepted_date_day
@@ -1129,7 +1153,7 @@ def copyright_year(soup):
 		copyright_year = extract_node_text(permissions_section[0], "copyright-year")
 	except(IndexError):
 		return None
-	return copyright_year
+	return int(copyright_year)
 
 def copyright_holder(soup):
 	"""
