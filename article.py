@@ -167,7 +167,9 @@ class article():
 		"""
 		if(self.doi == None):
 			 return None
-		about, uid, initial = self.fim.get_article_initial(self.doi_url)
+		# Create a temporary fom article object, to constrain the tags we get
+		tmp_obj = self.fim.fi_article();
+		about, uid, initial = self.fim.get_article_initial(self.doi_url, tmp_obj)
 		if(about != None):
 			obj = self.fim.fi_article(about = about, uid = uid, initial = initial)
 			

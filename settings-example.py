@@ -2,7 +2,8 @@
 import os
 test_xml_path = os.getcwd() + os.sep +  "sample-xml" + os.sep
 # Customize fluidinfo credentials
-instance = 'https://sandbox.fluidinfo.com'
+instance = 'https://fluiddb.fluidinfo.com'
 username = 'username'
 password = 'password'
-namespace = 'username/elife'
+# Use 'elifesciences.org/api_v1' namespace to gain read-only access to eLife API
+namespace = 'elifesciences.org/api_v1'
