@@ -60,7 +60,30 @@ def strip_strings(value):
 		return value
 	else:
 		try:
+			value = value.replace("  ", " ")
 			return value.strip()
+		except(AttributeError):
+			return value
+		
+def strip_punctuation_space(value):
+	"""
+	Strip excess whitespace prior to punctuation
+	using recursion
+	"""
+	if (value == None):
+		return None
+	elif (type(value) == list):
+		# List, so recursively strip elements
+		for i in range(0, len(value)):
+			value[i] = strip_punctuation_space(value[i])
+		return value
+	else:
+		try:
+			value = value.replace(" .", ".")
+			value = value.replace(" :", ":")
+			value = value.replace("( ", "(")
+			value = value.replace(" )", ")")
+			return value
 		except(AttributeError):
 			return value
 		
@@ -291,7 +314,8 @@ def authors(soup):
 				# Find elements by id
 				try:
 					corresp_node = soup.select("#" + rid)
-					author_notes = corresp_node[0].text
+					author_notes = corresp_node[0].get_text(" ")
+					author_notes = strip_strings(author_notes)
 				except:
 					continue
 				try:
@@ -315,7 +339,8 @@ def authors(soup):
 				# Find elements by id
 				try:
 					fn_node = soup.select("#" + rid)
-					fn_text = fn_node[0].text
+					fn_text = fn_node[0].get_text(" ")
+					fn_text = strip_strings(fn_text)
 				except:
 					continue
 				try:
@@ -339,7 +364,8 @@ def authors(soup):
 				# Find elements by id
 				try:
 					other_node = soup.select("#" + rid)
-					other_text = other_node[0].text
+					other_text = other_node[0].get_text(" ")
+					other_text = strip_strings(other_text)
 				except:
 					continue
 				try:
@@ -386,13 +412,12 @@ def refs(soup):
 			pass
 		
 		# ref - human readable full reference text
-		ref_text = tag.text
+		ref_text = tag.get_text(" ")
 		ref_text = strip_strings(ref_text)
 		# Remove excess space
 		ref_text = ' '.join(ref_text.split())
-		# Fix space dot
-		ref_text = ref_text.replace(" .", ".")
-		ref['ref'] = strip_strings(ref_text)
+		# Fix punctuation spaces and extra space
+		ref['ref'] = strip_punctuation_space(strip_strings(ref_text))
 		
 		# article_title
 		article_title = extract_node_text(tag, "article-title")
@@ -521,7 +546,7 @@ def components(soup):
 		except(IndexError):
 			pass
 
-		content = strip_strings(tag.text)
+		content = strip_strings(tag.get_text(" "))
 
 		# Put the extracted tags back in, hacky as the original order is not preserved
 		for et in extracted_tags:
