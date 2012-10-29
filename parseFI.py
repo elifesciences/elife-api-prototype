@@ -112,6 +112,26 @@ class fi_author(Object):
 	notes_footnotes = tag_value(settings.namespace + '/author/notes_footnotes')
 	notes_other = tag_value(settings.namespace + '/author/notes_other')
 
+class fi_alm(Object):
+	about = readonly_tag_value(u'fluiddb/about')
+	alm_source = tag_value(settings.namespace + '/alm/alm_source')
+	type = tag_value(settings.namespace + '/alm/type')
+	value = tag_value(settings.namespace + '/alm/value')
+	timespan = tag_value(settings.namespace + '/alm/timespan')
+	date_date = tag_value(settings.namespace + '/alm/date_date')
+	date_day = tag_value(settings.namespace + '/alm/date_day')
+	date_month = tag_value(settings.namespace + '/alm/date_month')
+	date_year = tag_value(settings.namespace + '/alm/date_year')
+	date_timestamp = tag_value(settings.namespace + '/alm/date_timestamp')
+	complete = tag_value(settings.namespace + '/alm/complete')
+
+class fi_alm_source(Object):
+	about = readonly_tag_value(u'fluiddb/about')
+	source = tag_value(settings.namespace + '/alm/source')
+	url = tag_value(settings.namespace + '/alm/url')
+	name = tag_value(settings.namespace + '/alm/name')
+	trusted = tag_value(settings.namespace + '/alm/trusted')
+
 def get_uid_and_initial(key, value):
 	"""
 	Covert content returned from fom values get query
