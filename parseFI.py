@@ -127,10 +127,10 @@ class fi_alm(Object):
 
 class fi_alm_source(Object):
 	about = readonly_tag_value(u'fluiddb/about')
-	source = tag_value(settings.namespace + '/alm/source')
-	url = tag_value(settings.namespace + '/alm/url')
-	name = tag_value(settings.namespace + '/alm/name')
-	trusted = tag_value(settings.namespace + '/alm/trusted')
+	source = tag_value(settings.namespace + '/alm_source/source')
+	url = tag_value(settings.namespace + '/alm_source/url')
+	name = tag_value(settings.namespace + '/alm_source/name')
+	trusted = tag_value(settings.namespace + '/alm_source/trusted')
 
 def get_uid_and_initial(key, value):
 	"""
