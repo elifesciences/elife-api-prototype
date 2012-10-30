@@ -7,10 +7,9 @@ import parseFI as fim
 
 def load_article(document = None):
 	# Build an article object from XML file
-	if document is None:
-		document = "elife00013.xml"
+	path = None
 	a = article.article()
-	a.parse_document(settings.test_xml_path, document)
+	a.parse_document(path, document)
 	return a
 	
 def load_article_into_fi(a = None):
@@ -216,7 +215,9 @@ def main(argv=None):
 
 	for opt, arg in opts:
 		if opt in ("-h", "--help"):
-			print 'load_article.py -i <document | fluidinfo> -o <article | fluidinfo> -d <doi>'
+			print 'load_article.py -i <document | "fluidinfo"> -o <"article" | "fluidinfo"> -d <doi>'
+			print "\n" + 'Both input (-i) and output (-o) must be specified'
+			print 'If using "fluidinfo" as the input (-i) then a DOI must also be specified'
 			sys.exit()
 		elif opt in ("-i", "--in"):
 			input = arg
@@ -228,6 +229,15 @@ def main(argv=None):
 	#print 'Input format is "', input
 	#print 'Output format is "', output
 	#print 'DOI is "', doi
+	
+	# Check for minimum parameters - need input and output
+	if(input == None and output == None) or \
+	(input == "fluidinfo" and doi == None) or \
+	(input == "fluidinfo" and doi != None and output == None):
+		print >>sys.stderr, "Insufficient parameters supplied"
+		print >>sys.stderr, "for help use --help"
+		return 2
+	
 	
 	if(input == "fluidinfo" and doi != None):
 		a = article.article(doi)

@@ -114,6 +114,7 @@ class fi_author(Object):
 
 class fi_alm(Object):
 	about = readonly_tag_value(u'fluiddb/about')
+	doi = tag_value(settings.namespace + '/alm/doi')
 	alm_source = tag_value(settings.namespace + '/alm/alm_source')
 	type = tag_value(settings.namespace + '/alm/type')
 	value = tag_value(settings.namespace + '/alm/value')

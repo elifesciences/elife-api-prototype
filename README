@@ -12,6 +12,8 @@ Project discsussion is happening on Basecamp at https://basecamp.com/1860005/pro
 lxml for robust xml parsing
 	$ pip install lxml
 
+fom for using Fluidinfo Objects
+	$ pip install fom
 
 [Leuttce][let] for testing.
 	$ pip install lettuce 

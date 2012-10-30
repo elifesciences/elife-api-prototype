@@ -51,7 +51,15 @@ def the_article_object_property_has_the_value(step, value):
 	property = eval('world.article.' + world.property)
 	if (value == 'None'):
 	  value = None
-	assert property == value, \
+	if (value == 'True'):
+	  value = True
+	if (value == 'False'):
+	  value = False
+	try:
+		assert int(property) == int(value), \
+		"Got %s" % property
+	except (ValueError, TypeError):
+		assert property == value, \
 		"Got %s" % property
 	
 @step('Then the article object property has the total length (.*$)')
