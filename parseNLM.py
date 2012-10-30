@@ -743,12 +743,14 @@ def research_organism(soup):
 	"""
 	Find the research-organism from the set of kwd-group tags
 	"""
-	research_organism = None
+	research_organism = []
 	kwd_group = get_kwd_group(soup)
 	for tag in kwd_group:
 		try:
-			if(tag["kwd-group-type"] == "research-organism"):
-				research_organism = extract_node_text(tag, "kwd")
+			if(tag["kwd-group-type"] == "research-organism" or tag["kwd-group-type"] == "Research-organism"):
+				tags = extract_nodes(tag, "kwd")
+				for t in tags:
+					research_organism.append(t.text)
 		except KeyError:
 			continue
 	return research_organism
