@@ -10,8 +10,6 @@ import json
 # Fluidinfo parser
 
 session = Fluid()
-session.login(settings.username, settings.password)
-session.bind()
 
 class fi_article(Object):
 	about = readonly_tag_value(u'fluiddb/about')
@@ -133,6 +131,10 @@ class fi_alm_source(Object):
 	name = tag_value(settings.namespace + '/alm_source/name')
 	trusted = tag_value(settings.namespace + '/alm_source/trusted')
 
+def bind_fluidinfo_session():
+	session.login(settings.username, settings.password)
+	session.bind()
+
 def get_uid_and_initial(key, value):
 	"""
 	Covert content returned from fom values get query
@@ -189,6 +191,8 @@ def values_get(query, tag_list):
 	Pass-through values get function, to allow external libraries
 	to use fom without directly importing
 	"""
+	if not hasattr(Fluid, 'bound'):
+		bind_fluidinfo_session()
 	return Fluid.bound.values.get(query, tag_list)
 
 def get_article_initial(doi_url, obj = None):

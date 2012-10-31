@@ -19,6 +19,9 @@ def load_article_into_fi(a = None):
 	"""
 	doi = a.doi
 
+	# Check for required Fluidinfo session
+	if not hasattr(fim.Fluid, 'bound'):
+		fim.bind_fluidinfo_session()
 	# Get existing object id and initial tag values, if it exists
 	tmp_obj = fim.fi_article();
 	doi_url = a.doi_url

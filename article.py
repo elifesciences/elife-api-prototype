@@ -167,6 +167,9 @@ class article():
 		"""
 		if(self.doi == None):
 			 return None
+		# Check for required Fluidinfo session
+		if not hasattr(self.fim.Fluid, 'bound'):
+			self.fim.bind_fluidinfo_session()
 		# Create a temporary fom article object, to constrain the tags we get
 		tmp_obj = self.fim.fi_article();
 		about, uid, initial = self.fim.get_article_initial(self.doi_url, tmp_obj)
