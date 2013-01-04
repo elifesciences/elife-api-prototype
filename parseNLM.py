@@ -765,13 +765,25 @@ def keywords(soup):
 	for tag in kwd_group:
 		try:
 			if(tag["kwd-group-type"] != None):
-				# A tag attribute found, skip it
-				continue
+				# A tag attribute found, check it for correct attribute
+				if(tag["kwd-group-type"] == "author-keywords"):
+					keywords.append(get_kwd(tag))
 		except KeyError:
 			# Tag attribute not found, we want this tag value
-			kwd = extract_nodes(tag, "kwd")
-			for k in kwd:
-				keywords.append(k.text)
+			keywords.append(get_kwd(tag))
+
+	return keywords
+
+@flatten
+def get_kwd(tag):
+	"""
+	For extracting individual keywords (kwd) from a parent kwd-group
+	refactored to use more than once in def keywords
+	"""
+	keywords = []
+	kwd = extract_nodes(tag, "kwd")
+	for k in kwd:
+		keywords.append(k.text)
 	return keywords
 
 @strippen
