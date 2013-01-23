@@ -450,6 +450,11 @@ def refs(soup):
 			for n in name:
 				surname = extract_node_text(n, "surname")
 				given_names = extract_node_text(n, "given-names")
+				# Convert all to strings in case a name component is missing
+				if(surname is None):
+					surname = ""
+				if(given_names is None):
+					given_names = ""
 				full_name = strip_strings(surname + ' ' + given_names)
 				authors.append(full_name)
 			if(len(authors) > 0):
