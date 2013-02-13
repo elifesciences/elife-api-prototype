@@ -616,6 +616,7 @@ def abstract(soup):
 		pass
 
 	# Find the desired abstract node, <abstract>
+	abstract_node = None
 	for tag in abstract_soup:
 		try:
 			if(tag["abstract-type"] != None):
@@ -625,6 +626,10 @@ def abstract(soup):
 				# No attribute, use this abstract
 				abstract_node = tag
 				break
+	
+	# Shortcut: if no abstract found, return none
+	if(abstract_node == None):
+		return None
 
 	# Allow the contents of certain markup tags, then
 	#  remove any tags and their contents not on the allowed list
