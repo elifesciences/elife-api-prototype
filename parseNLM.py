@@ -1202,7 +1202,10 @@ def copyright_year(soup):
 		copyright_year = extract_node_text(permissions_section[0], "copyright-year")
 	except(IndexError):
 		return None
-	return int(copyright_year)
+	try:
+		return int(copyright_year)
+	except TypeError:
+		return copyright_year
 
 def copyright_holder(soup):
 	"""
