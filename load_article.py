@@ -82,7 +82,11 @@ def load_article_into_fi(a = None):
 					 or k == "authors" or k == "refs" or k == "components" or k == "fim"):
 			#print k
 			if(v != None):
-				setattr(obj, k, v)
+				try:
+					setattr(obj, k, v)
+				except ValueError:
+					# Gracefully recover from "ValueError: Cannot lazy-save a non-primitive value."
+					pass
 				
 	print obj.doi_url
 
