@@ -123,7 +123,7 @@ def parse_document(filelocation):
 	return parse_xml(open(filelocation))
 
 def parse_xml(xml):
-	soup = BeautifulSoup(xml, "lxml")
+	soup = BeautifulSoup(xml, ["lxml", "xml"])
 	return soup
 
 def extract_nodes(soup, nodename, attr = None, value = None):
